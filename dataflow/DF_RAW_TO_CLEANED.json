@@ -1,5 +1,5 @@
 {
-	"name": "DF_RAW_TO_REPORT",
+	"name": "DF_RAW_TO_CLEANED",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
