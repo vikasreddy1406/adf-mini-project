@@ -16,6 +16,9 @@
 			"transformations": [
 				{
 					"name": "filter1"
+				},
+				{
+					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -23,7 +26,8 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> userRawData",
-				"userRawData filter(ERROR_FUNCTION('!isNull(_id) || !isNull(role)__NEW_LINE_R____NEW_LINE_N__')) ~> filter1"
+				"derivedColumn1 filter(ERROR_FUNCTION('!isNull(_id) || !isNull(role)__NEW_LINE_R____NEW_LINE_N__')) ~> filter1",
+				"userRawData derive({_id} = ERROR_FUNCTION('')) ~> derivedColumn1"
 			]
 		}
 	}
