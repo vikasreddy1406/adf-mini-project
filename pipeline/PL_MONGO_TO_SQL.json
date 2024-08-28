@@ -4,6 +4,7 @@
 		"activities": [
 			{
 				"name": "Copy Users data",
+				"description": "Copy Users data from mongodb to sql",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
