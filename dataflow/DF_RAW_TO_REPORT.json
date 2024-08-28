@@ -16,7 +16,7 @@
 			"transformations": [
 				{
 					"name": "filter1",
-					"description": "filtering rows if "
+					"description": "filtering rows if id or role is null"
 				}
 			],
 			"scriptLines": [
