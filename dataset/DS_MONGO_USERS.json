@@ -1,0 +1,15 @@
+{
+	"name": "DS_MONGO_USERS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_MONGO_TO_SQL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "MongoDbAtlasCollection",
+		"schema": [],
+		"typeProperties": {
+			"collection": "users"
+		}
+	}
+}
