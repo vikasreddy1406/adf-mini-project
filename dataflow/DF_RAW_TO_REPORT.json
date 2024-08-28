@@ -29,7 +29,8 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> userRawData",
-				"userRawData filter(ERROR_FUNCTION('!isNull(_id) || !isNull(role)__NEW_LINE_R____NEW_LINE_N__')) ~> filter1"
+				"userRawData filter({_id}!=\"NULL\"\r",
+				") ~> filter1"
 			]
 		}
 	}
