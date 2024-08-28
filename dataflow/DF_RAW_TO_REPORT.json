@@ -30,7 +30,8 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> userRawData",
-				"userRawData derive({_id} = isNull({_id})) ~> userCleanedData"
+				"userRawData derive({_id} = isNull({_id}),",
+				"          role = isNull(role)) ~> userCleanedData"
 			]
 		}
 	}
