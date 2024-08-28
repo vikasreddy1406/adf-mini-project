@@ -55,8 +55,18 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"source": {
+						"type": "MongoDbAtlasSource",
+						"batchSize": 100
+					},
 					"enableStaging": false
-				}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_MONGO_USERS",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"annotations": []
