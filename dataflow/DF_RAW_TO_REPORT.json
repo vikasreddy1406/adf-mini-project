@@ -15,7 +15,8 @@
 			"sinks": [],
 			"transformations": [
 				{
-					"name": "derivedColumn1"
+					"name": "userCleanedData",
+					"description": "Creating/updating the columns '_id,  role'"
 				}
 			],
 			"scriptLines": [
@@ -29,7 +30,7 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> userRawData",
-				"userRawData derive() ~> derivedColumn1"
+				"userRawData derive({_id} = isNull({_id})) ~> userCleanedData"
 			]
 		}
 	}
