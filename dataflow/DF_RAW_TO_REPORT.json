@@ -33,7 +33,7 @@
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> userRawData",
 				"derivedColumn1 filter(ERROR_FUNCTION('!isNull(_id) || !isNull(role)__NEW_LINE_R____NEW_LINE_N__')) ~> filter1",
-				"userRawData derive(id = ERROR_FUNCTION('')) ~> derivedColumn1"
+				"userRawData derive({_id} = ERROR_FUNCTION('')) ~> derivedColumn1"
 			]
 		}
 	}
