@@ -10,13 +10,59 @@
 						"type": "DatasetReference"
 					},
 					"name": "userRawData"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_SQL_Projects",
+						"type": "DatasetReference"
+					},
+					"name": "projectsRawData",
+					"description": "Projects source sql"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_SQL_Tasks",
+						"type": "DatasetReference"
+					},
+					"name": "tasksRawData",
+					"description": "Tasks source sql"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_SQL_Users_Cleaned",
+						"type": "DatasetReference"
+					},
+					"name": "userCleanedFinalOutput",
+					"description": "Cleaned the dataset"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_SQL_Projects_Cleaned",
+						"type": "DatasetReference"
+					},
+					"name": "projectsCleanedFinalOutput"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_SQL_Tasks_Cleaned",
+						"type": "DatasetReference"
+					},
+					"name": "tasksCleanedData"
+				}
+			],
 			"transformations": [
 				{
-					"name": "filter1",
+					"name": "userNullValuesRemove",
 					"description": "filtering rows if id or role is null"
+				},
+				{
+					"name": "userEmailChecking",
+					"description": "checking the user email is valid"
+				},
+				{
+					"name": "projectsDuplicateGrouped"
 				}
 			],
 			"scriptLines": [
@@ -30,8 +76,64 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> userRawData",
-				"userRawData filter({_id}!=\"NULL\" || role!=\"NULL\"\r",
-				") ~> filter1"
+				"source(output(",
+				"          {_id} as string,",
+				"          name as string,",
+				"          description as string,",
+				"          userId as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> projectsRawData",
+				"source(output(",
+				"          {_id} as string,",
+				"          name as string,",
+				"          description as string,",
+				"          status as string,",
+				"          userId as string,",
+				"          projectId as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> tasksRawData",
+				"userRawData filter({_id}!=\"NULL\" || role!=\"NULL\") ~> userNullValuesRemove",
+				"userNullValuesRemove derive(email = iif(endsWith(email, '@gmail.com'), email, concat(email, '@gmail.com'))) ~> userEmailChecking",
+				"projectsRawData aggregate(groupBy({_id},",
+				"          name,",
+				"          description),",
+				"     userId = first(userId)) ~> projectsDuplicateGrouped",
+				"userEmailChecking sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> userCleanedFinalOutput",
+				"projectsDuplicateGrouped sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> projectsCleanedFinalOutput",
+				"tasksRawData sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> tasksCleanedData"
 			]
 		}
 	}
