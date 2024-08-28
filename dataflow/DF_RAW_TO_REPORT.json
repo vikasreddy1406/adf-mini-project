@@ -15,8 +15,7 @@
 			"sinks": [],
 			"transformations": [
 				{
-					"name": "userCleanedData",
-					"description": "Creating/updating the columns '_id,  role'"
+					"name": "filter1"
 				}
 			],
 			"scriptLines": [
@@ -30,8 +29,7 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> userRawData",
-				"userRawData derive({_id} = isNull({_id}),",
-				"          role = isNull(role)) ~> userCleanedData"
+				"userRawData filter(ERROR_FUNCTION('')) ~> filter1"
 			]
 		}
 	}
