@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-mini-project-1"
+		},
+		"LS_MONGO_TO_SQL_connectionString": {
+			"value": ""
+		},
+		"LS_SQL_password": {
+			"value": ""
+		},
+		"LS_MONGO_TO_SQL_properties_typeProperties_database": {
+			"value": "management"
+		},
+		"LS_SQL_properties_typeProperties_server": {
+			"value": "jman-test-server.database.windows.net"
+		},
+		"LS_SQL_properties_typeProperties_database": {
+			"value": "DB_test"
+		},
+		"LS_SQL_properties_typeProperties_userName": {
+			"value": "vikas"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
