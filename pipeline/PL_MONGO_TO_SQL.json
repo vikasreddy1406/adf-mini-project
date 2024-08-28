@@ -59,6 +59,13 @@
 						"type": "MongoDbAtlasSource",
 						"batchSize": 100
 					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
 					"enableStaging": false
 				},
 				"inputs": [
@@ -66,7 +73,29 @@
 						"referenceName": "DS_MONGO_Projects",
 						"type": "DatasetReference"
 					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_SQL_Projects",
+						"type": "DatasetReference"
+					}
 				]
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"enableStaging": false
+				}
 			}
 		],
 		"annotations": []
