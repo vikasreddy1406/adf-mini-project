@@ -63,7 +63,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_MONGO_USERS",
+						"referenceName": "DS_MONGO_Projects",
 						"type": "DatasetReference"
 					}
 				]
