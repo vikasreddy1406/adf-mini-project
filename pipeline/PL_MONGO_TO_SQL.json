@@ -82,7 +82,7 @@
 				]
 			},
 			{
-				"name": "Copy",
+				"name": "Copy tasks data",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -101,7 +101,9 @@
 					"sink": {
 						"type": "AzureSqlSink",
 						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": false
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
 					},
 					"enableStaging": false
 				},
