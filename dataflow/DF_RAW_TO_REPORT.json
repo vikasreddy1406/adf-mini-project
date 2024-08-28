@@ -15,7 +15,8 @@
 			"sinks": [],
 			"transformations": [
 				{
-					"name": "filter1"
+					"name": "filter1",
+					"description": "filtering rows if "
 				}
 			],
 			"scriptLines": [
@@ -29,7 +30,7 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> userRawData",
-				"userRawData filter({_id}!=\"NULL\"\r",
+				"userRawData filter({_id}!=\"NULL\" || role!=\"NULL\"\r",
 				") ~> filter1"
 			]
 		}
