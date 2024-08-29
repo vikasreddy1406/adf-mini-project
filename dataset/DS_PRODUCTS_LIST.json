@@ -1,0 +1,86 @@
+{
+	"name": "DS_PRODUCTS_LIST",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_BLOB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "misumi_data",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "misumi_data.xlsx",
+				"container": "mini-project"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Department Code",
+				"type": "String"
+			},
+			{
+				"name": "Category Code",
+				"type": "String"
+			},
+			{
+				"name": "Category Name",
+				"type": "String"
+			},
+			{
+				"name": "Search Category Code",
+				"type": "String"
+			},
+			{
+				"name": "Series Code",
+				"type": "String"
+			},
+			{
+				"name": "Series Name",
+				"type": "String"
+			},
+			{
+				"name": "Brand Code",
+				"type": "String"
+			},
+			{
+				"name": "Brand URL Code",
+				"type": "String"
+			},
+			{
+				"name": "Brand Name",
+				"type": "String"
+			},
+			{
+				"name": "Series Status",
+				"type": "String"
+			},
+			{
+				"name": "Min Days to Ship",
+				"type": "String"
+			},
+			{
+				"name": "Max Days to Ship",
+				"type": "String"
+			},
+			{
+				"name": "Min Price",
+				"type": "String"
+			},
+			{
+				"name": "Max Price",
+				"type": "String"
+			},
+			{
+				"name": "Min Price Per Piece",
+				"type": "String"
+			},
+			{
+				"name": "Max Price Per Piece",
+				"type": "String"
+			}
+		]
+	}
+}
