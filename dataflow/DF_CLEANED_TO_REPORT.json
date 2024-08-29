@@ -41,6 +41,9 @@
 				{
 					"name": "tasksCompletion",
 					"description": "Creating completionPercentage'"
+				},
+				{
+					"name": "join1"
 				}
 			],
 			"scriptLines": [
@@ -87,7 +90,12 @@
 				"     totalTasks = count(tasksSqlCleaned@id),",
 				"          doneTasks = countIf(taskStatus=='Done')) ~> totalTasksPerProject",
 				"totalTasksPerProject derive(completionPercentage = round((doneTasks*100)/totalTasks,2)) ~> tasksCompletion",
-				"tasksCompletion sink(allowSchemaDrift: true,",
+				"tasksCompletion, userSqlCleaned join(projectUserId == id,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"join1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> reportTable"
