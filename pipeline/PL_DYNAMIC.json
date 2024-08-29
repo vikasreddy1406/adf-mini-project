@@ -72,10 +72,7 @@
 				"inputs": [
 					{
 						"referenceName": "DS_MONGO_PARAMETERS",
-						"type": "DatasetReference",
-						"parameters": {
-							"collectionName": "users"
-						}
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
