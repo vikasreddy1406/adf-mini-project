@@ -159,8 +159,7 @@
 									"path": "$['assignedTo']['$oid']"
 								},
 								"sink": {
-									"name": "userId",
-									"type": "String"
+									"name": "projectUserId"
 								}
 							}
 						]
@@ -255,8 +254,7 @@
 									"path": "$['assignedTo']['$oid']"
 								},
 								"sink": {
-									"name": "userId",
-									"type": "String"
+									"name": "taskUserId"
 								}
 							},
 							{
