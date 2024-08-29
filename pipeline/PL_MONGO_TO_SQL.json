@@ -36,7 +36,7 @@
 									"path": "$['_id']['$oid']"
 								},
 								"sink": {
-									"name": "_id",
+									"name": "id",
 									"type": "String"
 								}
 							},
@@ -55,6 +55,15 @@
 								},
 								"sink": {
 									"name": "email",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['password']"
+								},
+								"sink": {
+									"name": "password",
 									"type": "String"
 								}
 							},
@@ -159,13 +168,20 @@
 				"inputs": [
 					{
 						"referenceName": "DS_MONGO_PARAMETERS",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"collectionName": "projects"
+						}
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_SQL_Projects",
-						"type": "DatasetReference"
+						"referenceName": "DS_SQL_PARAMETERS",
+						"type": "DatasetReference",
+						"parameters": {
+							"schemaName": "raw",
+							"tableName": "projects"
+						}
 					}
 				]
 			},
