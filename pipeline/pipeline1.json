@@ -15,7 +15,7 @@
 				},
 				"userProperties": [
 					{
-						"name": "collection"
+						"name": "collectionName"
 					}
 				],
 				"typeProperties": {
