@@ -24,13 +24,40 @@
 								"tableName": "users"
 							},
 							"projectsRawData": {
-								"schemaName": "raw"
+								"schemaName": "raw",
+								"tableName": "projects"
+							},
+							"tasksRawData": {
+								"schemaName": "raw",
+								"tableName": "tasks"
+							},
+							"userCleanedFinalOutput": {
+								"schemaName": "cleaned",
+								"tableName": "users"
 							}
 						},
 						"linkedServiceParameters": {
 							"userRawData": {
 								"schemaLinkedService": {
 									"schemaName": "raw",
+									"tableName": "users"
+								}
+							},
+							"projectsRawData": {
+								"schemaLinkedService": {
+									"schemaName": "raw",
+									"tableName": "projects"
+								}
+							},
+							"tasksRawData": {
+								"schemaLinkedService": {
+									"schemaName": "raw",
+									"tableName": "tasks"
+								}
+							},
+							"userCleanedFinalOutput": {
+								"schemaLinkedService": {
+									"schemaName": "cleaned",
 									"tableName": "users"
 								}
 							}
