@@ -157,16 +157,10 @@
 							{
 								"source": {
 									"path": "$['assignedTo']['$oid']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['createdAt']['$date']['$numberLong']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['__v']['$numberInt']"
+								},
+								"sink": {
+									"name": "userId",
+									"type": "String"
 								}
 							}
 						]
@@ -223,6 +217,10 @@
 							{
 								"source": {
 									"path": "$['_id']['$oid']"
+								},
+								"sink": {
+									"name": "id",
+									"type": "String"
 								}
 							},
 							{
@@ -255,26 +253,19 @@
 							{
 								"source": {
 									"path": "$['assignedTo']['$oid']"
+								},
+								"sink": {
+									"name": "userId",
+									"type": "String"
 								}
 							},
 							{
 								"source": {
 									"path": "$['project']['$oid']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['createdAt']['$date']['$numberLong']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['__v']['$numberInt']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['deadline']['$date']['$numberLong']"
+								},
+								"sink": {
+									"name": "projectId",
+									"type": "String"
 								}
 							}
 						]
