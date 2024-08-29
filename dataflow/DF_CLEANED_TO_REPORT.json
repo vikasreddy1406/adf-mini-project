@@ -28,7 +28,8 @@
 					"name": "totalTasksPerProject"
 				},
 				{
-					"name": "derivedColumn1"
+					"name": "tasksCompletion",
+					"description": "Creating completionPercentage'"
 				}
 			],
 			"scriptLines": [
@@ -62,7 +63,7 @@
 				"projectsAndTasks aggregate(groupBy(projectName),",
 				"     totalTasks = count(tasksSqlCleaned@id),",
 				"          doneTasks = countIf(taskStatus=='Done')) ~> totalTasksPerProject",
-				"totalTasksPerProject derive(completionRate = round((doneTasks*100)/totalTasks,2)) ~> derivedColumn1"
+				"totalTasksPerProject derive(completionPercentage = round((doneTasks*100)/totalTasks,2)) ~> tasksCompletion"
 			]
 		}
 	}
