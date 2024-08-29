@@ -20,6 +20,10 @@
 					"description": "Projects source sql"
 				},
 				{
+					"dataset": {
+						"referenceName": "DS_SQL_PARAMETERS",
+						"type": "DatasetReference"
+					},
 					"name": "tasksRawData",
 					"description": "Tasks source sql"
 				}
@@ -73,12 +77,18 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> userRawData",
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          id as string,",
+				"          name as string,",
+				"          description as string,",
+				"          userId as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> projectsRawData",
 				"source(output(",
-				"          {_id} as string,",
+				"          id as string,",
 				"          name as string,",
 				"          description as string,",
 				"          status as string,",
@@ -86,7 +96,9 @@
 				"          projectId as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> tasksRawData",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> tasksRawData",
 				"userRawData filter({_id}!=\"NULL\" || role!=\"NULL\") ~> userNullValuesRemove",
 				"userNullValuesRemove derive(email = iif(endsWith(email, '@gmail.com'), email, concat(email, '@gmail.com'))) ~> userEmailChecking",
 				"projectsRawData aggregate(groupBy({_id},",
