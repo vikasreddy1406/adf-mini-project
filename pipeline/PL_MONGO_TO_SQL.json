@@ -233,8 +233,7 @@
 									"path": "$['description']"
 								},
 								"sink": {
-									"name": "description",
-									"type": "String"
+									"name": "taskDescription"
 								}
 							},
 							{
@@ -242,8 +241,7 @@
 									"path": "$['status']"
 								},
 								"sink": {
-									"name": "status",
-									"type": "String"
+									"name": "taskStatus"
 								}
 							},
 							{
