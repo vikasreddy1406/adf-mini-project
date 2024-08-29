@@ -5,8 +5,19 @@
 			"referenceName": "LS_MONGO_TO_SQL",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"collectionName": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "MongoDbAtlasCollection",
-		"schema": []
+		"schema": [],
+		"typeProperties": {
+			"collection": {
+				"value": "@dataset().collectionName",
+				"type": "Expression"
+			}
+		}
 	}
 }
