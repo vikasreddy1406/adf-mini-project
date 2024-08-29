@@ -37,56 +37,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/PL_SQL_RAW_TO_CLEANED')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Raw to Cleaned",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "DF_RAW_TO_CLEANED",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"userRawData": {},
-									"projectsRawData": {},
-									"tasksRawData": {},
-									"userCleanedFinalOutput": {},
-									"projectsCleanedFinalOutput": {},
-									"tasksCleanedData": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/DF_RAW_TO_CLEANED')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/PL_MONGO_TO_SQL')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -112,6 +62,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
+								"preCopyScript": "DROP TABLE IF EXISTS RAW.USERS",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -126,7 +77,7 @@
 											"path": "$['_id']['$oid']"
 										},
 										"sink": {
-											"name": "_id",
+											"name": "id",
 											"type": "String"
 										}
 									},
@@ -150,6 +101,15 @@
 									},
 									{
 										"source": {
+											"path": "$['password']"
+										},
+										"sink": {
+											"name": "password",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
 											"path": "$['role']"
 										},
 										"sink": {
@@ -162,16 +122,21 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "DS_MONGO_Users",
+								"referenceName": "DS_MONGO_PARAMETERS",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"collectionName": "users"
+								}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "DS_SQL_Users",
+								"referenceName": "DS_SQL_PARAMETERS",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"schemaName": "raw",
+									"tableName": "users"
+								}
 							}
 						]
 					},
@@ -194,6 +159,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
+								"preCopyScript": "DROP TABLE IF EXISTS RAW.PROJECTS",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -208,7 +174,8 @@
 											"path": "$['_id']['$oid']"
 										},
 										"sink": {
-											"name": "_id"
+											"name": "id",
+											"type": "String"
 										}
 									},
 									{
@@ -216,8 +183,7 @@
 											"path": "$['name']"
 										},
 										"sink": {
-											"name": "name",
-											"type": "String"
+											"name": "projectName"
 										}
 									},
 									{
@@ -225,8 +191,7 @@
 											"path": "$['description']"
 										},
 										"sink": {
-											"name": "description",
-											"type": "String"
+											"name": "projectDescription"
 										}
 									},
 									{
@@ -234,8 +199,7 @@
 											"path": "$['assignedTo']['$oid']"
 										},
 										"sink": {
-											"name": "userId",
-											"type": "String"
+											"name": "projectUserId"
 										}
 									}
 								]
@@ -243,16 +207,21 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "DS_MONGO_Projects",
+								"referenceName": "DS_MONGO_PARAMETERS",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"collectionName": "projects"
+								}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "DS_SQL_Projects",
+								"referenceName": "DS_SQL_PARAMETERS",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"schemaName": "raw",
+									"tableName": "projects"
+								}
 							}
 						]
 					},
@@ -275,6 +244,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
+								"preCopyScript": "DROP TABLE IF EXISTS RAW.TASKS",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -289,7 +259,7 @@
 											"path": "$['_id']['$oid']"
 										},
 										"sink": {
-											"name": "_id",
+											"name": "id",
 											"type": "String"
 										}
 									},
@@ -298,8 +268,7 @@
 											"path": "$['name']"
 										},
 										"sink": {
-											"name": "name",
-											"type": "String"
+											"name": "taskName"
 										}
 									},
 									{
@@ -307,8 +276,7 @@
 											"path": "$['description']"
 										},
 										"sink": {
-											"name": "description",
-											"type": "String"
+											"name": "taskDescription"
 										}
 									},
 									{
@@ -316,8 +284,7 @@
 											"path": "$['status']"
 										},
 										"sink": {
-											"name": "status",
-											"type": "String"
+											"name": "taskStatus"
 										}
 									},
 									{
@@ -325,8 +292,7 @@
 											"path": "$['assignedTo']['$oid']"
 										},
 										"sink": {
-											"name": "userId",
-											"type": "String"
+											"name": "taskUserId"
 										}
 									},
 									{
@@ -343,16 +309,21 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "DS_MONGO_Tasks",
+								"referenceName": "DS_MONGO_PARAMETERS",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"collectionName": "tasks"
+								}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "DS_SQL_Tasks",
+								"referenceName": "DS_SQL_PARAMETERS",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"schemaName": "raw",
+									"tableName": "tasks"
+								}
 							}
 						]
 					}
@@ -363,16 +334,170 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_MONGO_Users')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQL_Users')]",
-				"[concat(variables('factoryId'), '/datasets/DS_MONGO_Projects')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQL_Projects')]",
-				"[concat(variables('factoryId'), '/datasets/DS_MONGO_Tasks')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQL_Tasks')]"
+				"[concat(variables('factoryId'), '/datasets/DS_MONGO_PARAMETERS')]",
+				"[concat(variables('factoryId'), '/datasets/DS_SQL_PARAMETERS')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_MONGO_Projects')]",
+			"name": "[concat(parameters('factoryName'), '/PL_SQL_RAW_TO_REPORT')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Raw to Cleaned",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "DF_RAW_TO_CLEANED",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"userRawData": {
+										"schemaName": "raw",
+										"tableName": "users"
+									},
+									"projectsRawData": {
+										"schemaName": "raw",
+										"tableName": "projects"
+									},
+									"tasksRawData": {
+										"schemaName": "raw",
+										"tableName": "tasks"
+									},
+									"userCleanedFinalOutput": {
+										"schemaName": "cleaned",
+										"tableName": "users"
+									},
+									"projectsCleanedFinalOutput": {
+										"schemaName": "cleaned",
+										"tableName": "projects"
+									},
+									"tasksCleanedData": {
+										"schemaName": "cleaned",
+										"tableName": "tasks"
+									}
+								},
+								"linkedServiceParameters": {
+									"userRawData": {
+										"schemaLinkedService": {
+											"schemaName": "raw",
+											"tableName": "users"
+										}
+									},
+									"projectsRawData": {
+										"schemaLinkedService": {
+											"schemaName": "raw",
+											"tableName": "projects"
+										}
+									},
+									"tasksRawData": {
+										"schemaLinkedService": {
+											"schemaName": "raw",
+											"tableName": "tasks"
+										}
+									},
+									"userCleanedFinalOutput": {
+										"schemaLinkedService": {
+											"schemaName": "cleaned",
+											"tableName": "users"
+										}
+									},
+									"projectsCleanedFinalOutput": {
+										"schemaLinkedService": {
+											"schemaName": "cleaned",
+											"tableName": "projects"
+										}
+									},
+									"tasksCleanedData": {
+										"schemaLinkedService": {
+											"schemaName": "cleaned",
+											"tableName": "tasks"
+										}
+									}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					},
+					{
+						"name": "Cleaned to Report",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "Raw to Cleaned",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "DF_CLEANED_TO_REPORT",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"projectsSqlCleaned": {
+										"schemaName": "cleaned",
+										"tableName": "projects"
+									},
+									"tasksSqlCleaned": {
+										"schemaName": "cleaned",
+										"tableName": "tasks"
+									},
+									"userSqlCleaned": {
+										"schemaName": "cleaned",
+										"tableName": "users"
+									},
+									"reportTable": {
+										"schemaName": "report",
+										"tableName": "completiondata"
+									}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/DF_RAW_TO_CLEANED')]",
+				"[concat(variables('factoryId'), '/dataflows/DF_CLEANED_TO_REPORT')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_MONGO_PARAMETERS')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -380,11 +505,19 @@
 					"referenceName": "LS_MONGO_TO_SQL",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"collectionName": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "MongoDbAtlasCollection",
 				"schema": [],
 				"typeProperties": {
-					"collection": "projects"
+					"collection": {
+						"value": "@dataset().collectionName",
+						"type": "Expression"
+					}
 				}
 			},
 			"dependsOn": [
@@ -392,47 +525,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_MONGO_Tasks')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_MONGO_TO_SQL",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "MongoDbAtlasCollection",
-				"schema": [],
-				"typeProperties": {
-					"collection": "tasks"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_MONGO_TO_SQL')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_MONGO_Users')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_MONGO_TO_SQL",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "MongoDbAtlasCollection",
-				"schema": [],
-				"typeProperties": {
-					"collection": "users"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_MONGO_TO_SQL')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_SQL_Projects')]",
+			"name": "[concat(parameters('factoryName'), '/DS_SQL_PARAMETERS')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -440,54 +533,26 @@
 					"referenceName": "LS_SQL",
 					"type": "LinkedServiceReference"
 				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "raw",
-					"table": "projects"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQL')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_SQL_Tasks')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_SQL",
-					"type": "LinkedServiceReference"
+				"parameters": {
+					"schemaName": {
+						"type": "string"
+					},
+					"tableName": {
+						"type": "string"
+					}
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [],
 				"typeProperties": {
-					"schema": "raw",
-					"table": "tasks"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQL')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_SQL_Users')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_SQL",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "raw",
-					"table": "users"
+					"schema": {
+						"value": "@dataset().schemaName",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().tableName",
+						"type": "Expression"
+					}
 				}
 			},
 			"dependsOn": [
@@ -532,6 +597,139 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DF_CLEANED_TO_REPORT')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "DS_SQL_PARAMETERS",
+								"type": "DatasetReference"
+							},
+							"name": "projectsSqlCleaned"
+						},
+						{
+							"dataset": {
+								"referenceName": "DS_SQL_PARAMETERS",
+								"type": "DatasetReference"
+							},
+							"name": "tasksSqlCleaned"
+						},
+						{
+							"dataset": {
+								"referenceName": "DS_SQL_PARAMETERS",
+								"type": "DatasetReference"
+							},
+							"name": "userSqlCleaned"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "DS_SQL_PARAMETERS",
+								"type": "DatasetReference"
+							},
+							"name": "reportTable"
+						}
+					],
+					"transformations": [
+						{
+							"name": "projectsAndTasks"
+						},
+						{
+							"name": "totalTasksPerProject"
+						},
+						{
+							"name": "tasksCompletion",
+							"description": "Creating completionPercentage'"
+						},
+						{
+							"name": "join1"
+						},
+						{
+							"name": "reportTableSelect"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          id as string,",
+						"          projectName as string,",
+						"          projectDescription as string,",
+						"          projectUserId as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> projectsSqlCleaned",
+						"source(output(",
+						"          id as string,",
+						"          taskName as string,",
+						"          taskDescription as string,",
+						"          taskStatus as string,",
+						"          taskUserId as string,",
+						"          projectId as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> tasksSqlCleaned",
+						"source(output(",
+						"          id as string,",
+						"          fullName as string,",
+						"          email as string,",
+						"          password as string,",
+						"          role as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> userSqlCleaned",
+						"projectsSqlCleaned, tasksSqlCleaned join(projectsSqlCleaned@id == projectId,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> projectsAndTasks",
+						"projectsAndTasks aggregate(groupBy(projectName,",
+						"          projectUserId),",
+						"     totalTasks = count(tasksSqlCleaned@id),",
+						"          doneTasks = countIf(taskStatus=='Done')) ~> totalTasksPerProject",
+						"totalTasksPerProject derive(completionPercentage = round((doneTasks*100)/totalTasks,2)) ~> tasksCompletion",
+						"tasksCompletion, userSqlCleaned join(projectUserId == id,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> join1",
+						"join1 select(mapColumn(",
+						"          projectName,",
+						"          projectAssignedTo = fullName,",
+						"          totalTasks,",
+						"          doneTasks,",
+						"          completionPercentage",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> reportTableSelect",
+						"reportTableSelect sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     preSQLs:['DROP TABLE IF EXISTS REPORT.COMPLETIONDATA'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> reportTable"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_SQL_PARAMETERS')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DF_RAW_TO_CLEANED')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -541,14 +739,14 @@
 					"sources": [
 						{
 							"dataset": {
-								"referenceName": "DS_SQL_Users",
+								"referenceName": "DS_SQL_PARAMETERS",
 								"type": "DatasetReference"
 							},
 							"name": "userRawData"
 						},
 						{
 							"dataset": {
-								"referenceName": "DS_SQL_Projects",
+								"referenceName": "DS_SQL_PARAMETERS",
 								"type": "DatasetReference"
 							},
 							"name": "projectsRawData",
@@ -556,7 +754,7 @@
 						},
 						{
 							"dataset": {
-								"referenceName": "DS_SQL_Tasks",
+								"referenceName": "DS_SQL_PARAMETERS",
 								"type": "DatasetReference"
 							},
 							"name": "tasksRawData",
@@ -566,7 +764,7 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "DS_SQL_Users_Cleaned",
+								"referenceName": "DS_SQL_PARAMETERS",
 								"type": "DatasetReference"
 							},
 							"name": "userCleanedFinalOutput",
@@ -574,14 +772,14 @@
 						},
 						{
 							"dataset": {
-								"referenceName": "DS_SQL_Projects_Cleaned",
+								"referenceName": "DS_SQL_PARAMETERS",
 								"type": "DatasetReference"
 							},
 							"name": "projectsCleanedFinalOutput"
 						},
 						{
 							"dataset": {
-								"referenceName": "DS_SQL_Tasks_Cleaned",
+								"referenceName": "DS_SQL_PARAMETERS",
 								"type": "DatasetReference"
 							},
 							"name": "tasksCleanedData"
@@ -602,9 +800,10 @@
 					],
 					"scriptLines": [
 						"source(output(",
-						"          {_id} as string,",
+						"          id as string,",
 						"          fullName as string,",
 						"          email as string,",
+						"          password as string,",
 						"          role as string",
 						"     ),",
 						"     allowSchemaDrift: true,",
@@ -612,33 +811,33 @@
 						"     isolationLevel: 'READ_UNCOMMITTED',",
 						"     format: 'table') ~> userRawData",
 						"source(output(",
-						"          {_id} as string,",
-						"          name as string,",
-						"          description as string,",
-						"          userId as string",
+						"          id as string,",
+						"          projectName as string,",
+						"          projectDescription as string,",
+						"          projectUserId as string",
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     isolationLevel: 'READ_UNCOMMITTED',",
 						"     format: 'table') ~> projectsRawData",
 						"source(output(",
-						"          {_id} as string,",
-						"          name as string,",
-						"          description as string,",
-						"          status as string,",
-						"          userId as string,",
+						"          id as string,",
+						"          taskName as string,",
+						"          taskDescription as string,",
+						"          taskStatus as string,",
+						"          taskUserId as string,",
 						"          projectId as string",
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     isolationLevel: 'READ_UNCOMMITTED',",
 						"     format: 'table') ~> tasksRawData",
-						"userRawData filter({_id}!=\"NULL\" || role!=\"NULL\") ~> userNullValuesRemove",
+						"userRawData filter(id!=\"NULL\" || role!=\"NULL\") ~> userNullValuesRemove",
 						"userNullValuesRemove derive(email = iif(endsWith(email, '@gmail.com'), email, concat(email, '@gmail.com'))) ~> userEmailChecking",
-						"projectsRawData aggregate(groupBy({_id},",
-						"          name,",
-						"          description),",
-						"     userId = first(userId)) ~> projectsDuplicateGrouped",
+						"projectsRawData aggregate(groupBy(id,",
+						"          projectName,",
+						"          projectDescription),",
+						"     projectUserId = first(projectUserId)) ~> projectsDuplicateGrouped",
 						"userEmailChecking sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     deletable:false,",
@@ -646,6 +845,7 @@
 						"     updateable:false,",
 						"     upsertable:false,",
 						"     format: 'table',",
+						"     preSQLs:['DROP TABLE IF EXISTS CLEANED.USERS'],",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
 						"     errorHandlingOption: 'stopOnFirstError') ~> userCleanedFinalOutput",
@@ -656,6 +856,7 @@
 						"     updateable:false,",
 						"     upsertable:false,",
 						"     format: 'table',",
+						"     preSQLs:['DROP TABLE IF EXISTS CLEANED.PROJECTS'],",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
 						"     errorHandlingOption: 'stopOnFirstError') ~> projectsCleanedFinalOutput",
@@ -666,6 +867,7 @@
 						"     updateable:false,",
 						"     upsertable:false,",
 						"     format: 'table',",
+						"     preSQLs:['DROP TABLE IF EXISTS CLEANED.TASKS'],",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
 						"     errorHandlingOption: 'stopOnFirstError') ~> tasksCleanedData"
@@ -673,75 +875,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_SQL_Users')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQL_Projects')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQL_Tasks')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQL_Users_Cleaned')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQL_Projects_Cleaned')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQL_Tasks_Cleaned')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_SQL_Users_Cleaned')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_SQL",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "cleaned",
-					"table": "users"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQL')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_SQL_Projects_Cleaned')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_SQL",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "cleaned",
-					"table": "projects"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQL')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_SQL_Tasks_Cleaned')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_SQL",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "cleaned",
-					"table": "tasks"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQL')]"
+				"[concat(variables('factoryId'), '/datasets/DS_SQL_PARAMETERS')]"
 			]
 		}
 	]
