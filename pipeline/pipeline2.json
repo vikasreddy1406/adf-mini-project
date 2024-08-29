@@ -35,7 +35,8 @@
 									"path": "$['_id']['$oid']"
 								},
 								"sink": {
-									"name": "$oid"
+									"name": "id",
+									"type": "String"
 								}
 							},
 							{
@@ -43,7 +44,8 @@
 									"path": "$['fullName']"
 								},
 								"sink": {
-									"name": "fullName"
+									"name": "fullName",
+									"type": "String"
 								}
 							},
 							{
@@ -51,7 +53,8 @@
 									"path": "$['email']"
 								},
 								"sink": {
-									"name": "email"
+									"name": "email",
+									"type": "String"
 								}
 							},
 							{
@@ -59,7 +62,8 @@
 									"path": "$['password']"
 								},
 								"sink": {
-									"name": "password"
+									"name": "password",
+									"type": "String"
 								}
 							},
 							{
@@ -67,23 +71,8 @@
 									"path": "$['role']"
 								},
 								"sink": {
-									"name": "role"
-								}
-							},
-							{
-								"source": {
-									"path": "$['createdAt']['$date']['$numberLong']"
-								},
-								"sink": {
-									"name": "$numberLong"
-								}
-							},
-							{
-								"source": {
-									"path": "$['__v']['$numberInt']"
-								},
-								"sink": {
-									"name": "$numberInt"
+									"name": "role",
+									"type": "String"
 								}
 							}
 						]
