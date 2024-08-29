@@ -17,6 +17,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "tasksSqlCleaned"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_SQL_PARAMETERS",
+						"type": "DatasetReference"
+					},
+					"name": "userSqlCleaned"
 				}
 			],
 			"sinks": [
@@ -59,6 +66,10 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> tasksSqlCleaned",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> userSqlCleaned",
 				"projectsSqlCleaned, tasksSqlCleaned join(projectsSqlCleaned@id == projectId,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
@@ -66,8 +77,7 @@
 				"     broadcast: 'auto')~> projectsAndTasks",
 				"projectsAndTasks aggregate(groupBy(projectName),",
 				"     totalTasks = count(tasksSqlCleaned@id),",
-				"          doneTasks = countIf(taskStatus=='Done'),",
-				"          column1 = ERROR_FUNCTION('')) ~> totalTasksPerProject",
+				"          doneTasks = countIf(taskStatus=='Done')) ~> totalTasksPerProject",
 				"totalTasksPerProject derive(completionPercentage = round((doneTasks*100)/totalTasks,2)) ~> tasksCompletion",
 				"tasksCompletion sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
