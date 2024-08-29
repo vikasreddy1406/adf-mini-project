@@ -25,7 +25,10 @@
 					"name": "projectsAndTasks"
 				},
 				{
-					"name": "aggregate1"
+					"name": "totalTasksPerProject"
+				},
+				{
+					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -58,7 +61,8 @@
 				"     broadcast: 'auto')~> projectsAndTasks",
 				"projectsAndTasks aggregate(groupBy(projectName),",
 				"     totalTasks = count(tasksSqlCleaned@id),",
-				"          doneTasks = countIf(taskStatus=='Done')) ~> aggregate1"
+				"          doneTasks = countIf(taskStatus=='Done')) ~> totalTasksPerProject",
+				"totalTasksPerProject derive() ~> derivedColumn1"
 			]
 		}
 	}
