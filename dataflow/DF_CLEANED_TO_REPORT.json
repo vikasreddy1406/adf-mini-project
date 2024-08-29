@@ -5,17 +5,9 @@
 		"typeProperties": {
 			"sources": [
 				{
-					"dataset": {
-						"referenceName": "DS_SQL_Projects",
-						"type": "DatasetReference"
-					},
 					"name": "projectsSqlCleaned"
 				},
 				{
-					"dataset": {
-						"referenceName": "DS_SQL_Tasks",
-						"type": "DatasetReference"
-					},
 					"name": "tasksSqlCleaned"
 				}
 			],
@@ -33,9 +25,7 @@
 				"          userId as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> projectsSqlCleaned",
+				"     validateSchema: false) ~> projectsSqlCleaned",
 				"source(output(",
 				"          {_id} as string,",
 				"          name as string,",
@@ -45,9 +35,7 @@
 				"          projectId as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> tasksSqlCleaned",
+				"     validateSchema: false) ~> tasksSqlCleaned",
 				"projectsSqlCleaned, tasksSqlCleaned join(projectsSqlCleaned@{_id} == projectId,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
