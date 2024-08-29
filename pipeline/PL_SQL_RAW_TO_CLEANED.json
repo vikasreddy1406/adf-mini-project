@@ -17,7 +17,24 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "DF_RAW_TO_CLEANED",
-						"type": "DataFlowReference"
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"userRawData": {
+								"schemaName": "raw",
+								"tableName": "users"
+							},
+							"projectsRawData": {
+								"schemaName": "raw"
+							}
+						},
+						"linkedServiceParameters": {
+							"userRawData": {
+								"schemaLinkedService": {
+									"schemaName": "raw",
+									"tableName": "users"
+								}
+							}
+						}
 					},
 					"compute": {
 						"coreCount": 8,
