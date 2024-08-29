@@ -28,6 +28,10 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "DS_SQL_PARAMETERS",
+						"type": "DatasetReference"
+					},
 					"name": "reportTable"
 				}
 			],
@@ -46,7 +50,7 @@
 					"name": "join1"
 				},
 				{
-					"name": "select1"
+					"name": "reportTableSelect"
 				}
 			],
 			"scriptLines": [
@@ -106,11 +110,17 @@
 				"          completionPercentage",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1 sink(allowSchemaDrift: true,",
+				"     skipDuplicateMapOutputs: true) ~> reportTableSelect",
+				"reportTableSelect sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> reportTable"
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> reportTable"
 			]
 		}
 	}
