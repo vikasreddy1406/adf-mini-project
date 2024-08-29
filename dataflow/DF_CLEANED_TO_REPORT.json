@@ -48,7 +48,7 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> tasksSqlCleaned",
-				"projectsSqlCleaned, tasksSqlCleaned join(projectUserId == projectId,",
+				"projectsSqlCleaned, tasksSqlCleaned join(projectsSqlCleaned@id == projectId,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
