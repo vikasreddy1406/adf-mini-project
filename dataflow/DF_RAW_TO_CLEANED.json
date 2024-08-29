@@ -12,6 +12,10 @@
 					"name": "userRawData"
 				},
 				{
+					"dataset": {
+						"referenceName": "DS_SQL_PARAMETERS",
+						"type": "DatasetReference"
+					},
 					"name": "projectsRawData",
 					"description": "Projects source sql"
 				},
@@ -58,18 +62,21 @@
 				}
 			],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          id as string,",
+				"          fullName as string,",
+				"          email as string,",
+				"          password as string,",
+				"          role as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> userRawData",
-				"source(output(",
-				"          {_id} as string,",
-				"          name as string,",
-				"          description as string,",
-				"          userId as string",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> projectsRawData",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> projectsRawData",
 				"source(output(",
 				"          {_id} as string,",
 				"          name as string,",
