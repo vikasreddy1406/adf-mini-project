@@ -26,7 +26,68 @@
 						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['_id']['$oid']"
+								},
+								"sink": {
+									"name": "$oid"
+								}
+							},
+							{
+								"source": {
+									"path": "$['fullName']"
+								},
+								"sink": {
+									"name": "fullName"
+								}
+							},
+							{
+								"source": {
+									"path": "$['email']"
+								},
+								"sink": {
+									"name": "email"
+								}
+							},
+							{
+								"source": {
+									"path": "$['password']"
+								},
+								"sink": {
+									"name": "password"
+								}
+							},
+							{
+								"source": {
+									"path": "$['role']"
+								},
+								"sink": {
+									"name": "role"
+								}
+							},
+							{
+								"source": {
+									"path": "$['createdAt']['$date']['$numberLong']"
+								},
+								"sink": {
+									"name": "$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['__v']['$numberInt']"
+								},
+								"sink": {
+									"name": "$numberInt"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
