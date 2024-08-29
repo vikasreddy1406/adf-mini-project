@@ -9,7 +9,14 @@
 						"referenceName": "DS_SQL_Projects",
 						"type": "DatasetReference"
 					},
-					"name": "source1"
+					"name": "projectsSqlCleaned"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_SQL_Tasks",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
 				}
 			],
 			"sinks": [],
@@ -24,7 +31,19 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> source1"
+				"     format: 'table') ~> projectsSqlCleaned",
+				"source(output(",
+				"          {_id} as string,",
+				"          name as string,",
+				"          description as string,",
+				"          status as string,",
+				"          userId as string,",
+				"          projectId as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> source2"
 			]
 		}
 	}
