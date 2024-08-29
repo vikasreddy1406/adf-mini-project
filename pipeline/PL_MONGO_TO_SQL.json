@@ -141,8 +141,7 @@
 									"path": "$['name']"
 								},
 								"sink": {
-									"name": "name",
-									"type": "String"
+									"name": "projectName"
 								}
 							},
 							{
@@ -150,8 +149,7 @@
 									"path": "$['description']"
 								},
 								"sink": {
-									"name": "description",
-									"type": "String"
+									"name": "projectDescription"
 								}
 							},
 							{
@@ -227,8 +225,7 @@
 									"path": "$['name']"
 								},
 								"sink": {
-									"name": "name",
-									"type": "String"
+									"name": "taskName"
 								}
 							},
 							{
