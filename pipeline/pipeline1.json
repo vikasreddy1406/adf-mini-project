@@ -75,7 +75,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MongoDbAtlasCollection1",
+						"referenceName": "DS_MONGO_PARAMETERS",
 						"type": "DatasetReference",
 						"parameters": {
 							"collectionName": "users"
@@ -84,7 +84,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "AzureSqlTable1",
+						"referenceName": "DS_SQL_PARAMETERS",
 						"type": "DatasetReference",
 						"parameters": {
 							"schemaName": "raw",

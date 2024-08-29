@@ -1,5 +1,5 @@
 {
-	"name": "MongoDbAtlasCollection1",
+	"name": "DS_MONGO_PARAMETERS",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_MONGO_TO_SQL",
