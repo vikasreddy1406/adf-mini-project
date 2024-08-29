@@ -29,6 +29,11 @@
 				]
 			}
 		],
+		"variables": {
+			"collectionName": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
