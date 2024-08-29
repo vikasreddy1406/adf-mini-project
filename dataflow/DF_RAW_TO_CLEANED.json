@@ -101,7 +101,7 @@
 				"     format: 'table') ~> tasksRawData",
 				"userRawData filter(id!=\"NULL\" || role!=\"NULL\") ~> userNullValuesRemove",
 				"userNullValuesRemove derive(email = iif(endsWith(email, '@gmail.com'), email, concat(email, '@gmail.com'))) ~> userEmailChecking",
-				"projectsRawData aggregate(groupBy({_id} = id,",
+				"projectsRawData aggregate(groupBy({} = id,",
 				"          name,",
 				"          description),",
 				"     userId = first(userId)) ~> projectsDuplicateGrouped",
