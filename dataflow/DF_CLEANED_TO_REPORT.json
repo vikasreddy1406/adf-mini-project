@@ -22,7 +22,7 @@
 			"sinks": [],
 			"transformations": [
 				{
-					"name": "join1"
+					"name": "projectsAndTasks"
 				}
 			],
 			"scriptLines": [
@@ -48,11 +48,11 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> tasksSqlCleaned",
-				"projectsSqlCleaned join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"projectsSqlCleaned, tasksSqlCleaned join(projectsSqlCleaned@{_id} == projectId,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join1"
+				"     broadcast: 'auto')~> projectsAndTasks"
 			]
 		}
 	}
