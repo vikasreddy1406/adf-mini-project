@@ -23,16 +23,47 @@
 						"type": "MongoDbAtlasSource",
 						"batchSize": 100
 					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
 					"enableStaging": false
 				},
 				"inputs": [
 					{
 						"referenceName": "MongoDbAtlasCollection1",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"collectionName": {
+								"value": "@pipeline().parameters.collectionName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"schemaName": {
+								"value": "@pipeline().parameters.schemaName",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
 		],
+		"parameters": {
+			"collectionName": {
+				"type": "String"
+			},
+			"schemaName": {
+				"type": "String"
+			}
+		},
 		"variables": {
 			"collectionName": {
 				"type": "String"
