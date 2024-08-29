@@ -5,11 +5,6 @@
 			"referenceName": "LS_SQL",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"vikas": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": []
