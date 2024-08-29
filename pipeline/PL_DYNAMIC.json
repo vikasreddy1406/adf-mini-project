@@ -72,7 +72,13 @@
 				"inputs": [
 					{
 						"referenceName": "DS_MONGO_PARAMETERS",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"collectionName": {
+								"value": "@pipeline().parameters.collectionName",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
@@ -80,13 +86,23 @@
 						"referenceName": "DS_SQL_PARAMETERS",
 						"type": "DatasetReference",
 						"parameters": {
-							"schemaName": "raw",
-							"tableName": "users2"
+							"schemaName": {
+								"value": "@pipeline().parameters.schemaName",
+								"type": "Expression"
+							}
 						}
 					}
 				]
 			}
 		],
+		"parameters": {
+			"collectionName": {
+				"type": "String"
+			},
+			"schemaName": {
+				"type": "String"
+			}
+		},
 		"variables": {
 			"collectionName": {
 				"type": "String"
