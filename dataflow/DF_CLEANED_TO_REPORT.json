@@ -44,6 +44,9 @@
 				},
 				{
 					"name": "join1"
+				},
+				{
+					"name": "select1"
 				}
 			],
 			"scriptLines": [
@@ -95,7 +98,21 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join1",
-				"join1 sink(allowSchemaDrift: true,",
+				"join1 select(mapColumn(",
+				"          projectName,",
+				"          projectUserId,",
+				"          totalTasks,",
+				"          doneTasks,",
+				"          completionPercentage,",
+				"          id,",
+				"          fullName,",
+				"          email,",
+				"          password,",
+				"          role",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> reportTable"
