@@ -62,7 +62,7 @@
 				"projectsAndTasks aggregate(groupBy(projectName),",
 				"     totalTasks = count(tasksSqlCleaned@id),",
 				"          doneTasks = countIf(taskStatus=='Done')) ~> totalTasksPerProject",
-				"totalTasksPerProject derive() ~> derivedColumn1"
+				"totalTasksPerProject derive(completionRate = (doneTasks*100)/totalTasks) ~> derivedColumn1"
 			]
 		}
 	}
