@@ -23,6 +23,9 @@
 			"transformations": [
 				{
 					"name": "projectsAndTasks"
+				},
+				{
+					"name": "aggregate1"
 				}
 			],
 			"scriptLines": [
@@ -52,7 +55,8 @@
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> projectsAndTasks"
+				"     broadcast: 'auto')~> projectsAndTasks",
+				"projectsAndTasks aggregate(groupBy(projectName)) ~> aggregate1"
 			]
 		}
 	}
