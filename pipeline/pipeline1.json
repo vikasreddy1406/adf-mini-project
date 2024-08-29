@@ -63,29 +63,11 @@
 							},
 							{
 								"source": {
-									"path": "$['password']"
-								},
-								"sink": {
-									"name": "password"
-								}
-							},
-							{
-								"source": {
 									"path": "$['role']"
 								},
 								"sink": {
 									"name": "role",
 									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['createdAt']['$date']['$numberLong']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['__v']['$numberInt']"
 								}
 							}
 						]
