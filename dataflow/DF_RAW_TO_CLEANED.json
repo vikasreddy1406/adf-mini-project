@@ -5,10 +5,6 @@
 		"typeProperties": {
 			"sources": [
 				{
-					"dataset": {
-						"referenceName": "DS_SQL_Users",
-						"type": "DatasetReference"
-					},
 					"name": "userRawData"
 				},
 				{
@@ -58,16 +54,8 @@
 				}
 			],
 			"scriptLines": [
-				"source(output(",
-				"          {_id} as string,",
-				"          fullName as string,",
-				"          email as string,",
-				"          role as string",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> userRawData",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> userRawData",
 				"source(output(",
 				"          {_id} as string,",
 				"          name as string,",
