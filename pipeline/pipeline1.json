@@ -13,7 +13,11 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "collection"
+					}
+				],
 				"typeProperties": {
 					"source": {
 						"type": "MongoDbAtlasSource",
