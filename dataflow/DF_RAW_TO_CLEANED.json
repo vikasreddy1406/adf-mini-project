@@ -104,7 +104,7 @@
 				"projectsRawData aggregate(groupBy(id,",
 				"          projectName,",
 				"          projectDescription),",
-				"     projectUserId = ERROR_FUNCTION('')) ~> projectsDuplicateGrouped",
+				"     projectUserId = first(projectUserId)) ~> projectsDuplicateGrouped",
 				"userEmailChecking sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
