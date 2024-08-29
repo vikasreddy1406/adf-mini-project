@@ -1,5 +1,5 @@
 {
-	"name": "PL_SQL_RAW_TO_CLEANED",
+	"name": "PL_SQL_RAW_TO_REPORT",
 	"properties": {
 		"activities": [
 			{
@@ -91,7 +91,7 @@
 				}
 			},
 			{
-				"name": "Data flow1",
+				"name": "Cleaned to Report",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -103,6 +103,24 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DF_CLEANED_TO_REPORT",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"projectsSqlCleaned": {
+								"schemaName": "cleaned",
+								"tableName": "projects"
+							},
+							"tasksSqlCleaned": {
+								"schemaName": "cleaned",
+								"tableName": "tasks"
+							},
+							"userSqlCleaned": {
+								"schemaName": "cleaned",
+								"tableName": "users"
+							}
+						}
+					},
 					"compute": {
 						"coreCount": 8,
 						"computeType": "General"
