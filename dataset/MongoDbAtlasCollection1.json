@@ -1,0 +1,12 @@
+{
+	"name": "MongoDbAtlasCollection1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_MONGO_TO_SQL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "MongoDbAtlasCollection",
+		"schema": []
+	}
+}
