@@ -89,6 +89,10 @@
 							"schemaName": {
 								"value": "@pipeline().parameters.schemaName",
 								"type": "Expression"
+							},
+							"tableName": {
+								"value": "@pipeline().parameters.tableName",
+								"type": "Expression"
 							}
 						}
 					}
@@ -100,6 +104,9 @@
 				"type": "String"
 			},
 			"schemaName": {
+				"type": "String"
+			},
+			"tableName": {
 				"type": "String"
 			}
 		},
