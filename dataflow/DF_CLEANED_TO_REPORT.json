@@ -19,7 +19,11 @@
 					"name": "tasksSqlCleaned"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"name": "reportTable"
+				}
+			],
 			"transformations": [
 				{
 					"name": "projectsAndTasks"
@@ -62,8 +66,13 @@
 				"     broadcast: 'auto')~> projectsAndTasks",
 				"projectsAndTasks aggregate(groupBy(projectName),",
 				"     totalTasks = count(tasksSqlCleaned@id),",
-				"          doneTasks = countIf(taskStatus=='Done')) ~> totalTasksPerProject",
-				"totalTasksPerProject derive(completionPercentage = round((doneTasks*100)/totalTasks,2)) ~> tasksCompletion"
+				"          doneTasks = countIf(taskStatus=='Done'),",
+				"          column1 = ERROR_FUNCTION('')) ~> totalTasksPerProject",
+				"totalTasksPerProject derive(completionPercentage = round((doneTasks*100)/totalTasks,2)) ~> tasksCompletion",
+				"tasksCompletion sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> reportTable"
 			]
 		}
 	}
