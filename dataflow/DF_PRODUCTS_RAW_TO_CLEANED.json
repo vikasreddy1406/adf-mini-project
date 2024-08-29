@@ -1,0 +1,48 @@
+{
+	"name": "DF_PRODUCTS_RAW_TO_CLEANED",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_SQL_PARAMETERS",
+						"type": "DatasetReference"
+					},
+					"name": "productsRaw"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "aggregate1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          {Department Code} as string,",
+				"          {Category Code} as string,",
+				"          {Category Name} as string,",
+				"          {Search Category Code} as string,",
+				"          {Series Code} as string,",
+				"          {Series Name} as string,",
+				"          {Brand Code} as string,",
+				"          {Brand URL Code} as string,",
+				"          {Brand Name} as string,",
+				"          {Series Status} as string,",
+				"          {Min Days to Ship} as string,",
+				"          {Max Days to Ship} as string,",
+				"          {Min Price} as string,",
+				"          {Max Price} as string,",
+				"          {Min Price Per Piece} as string,",
+				"          {Max Price Per Piece} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> productsRaw",
+				"productsRaw aggregate(groupBy({Series Name})) ~> aggregate1"
+			]
+		}
+	}
+}
