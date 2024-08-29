@@ -130,6 +130,10 @@
 							{
 								"source": {
 									"path": "$['_id']['$oid']"
+								},
+								"sink": {
+									"name": "id",
+									"type": "String"
 								}
 							},
 							{
@@ -152,17 +156,7 @@
 							},
 							{
 								"source": {
-									"path": "$['deadline']['$date']['$numberLong']"
-								}
-							},
-							{
-								"source": {
 									"path": "$['assignedTo']['$oid']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['tasks'][0]['$oid']"
 								}
 							},
 							{
