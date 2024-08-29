@@ -130,9 +130,6 @@
 							{
 								"source": {
 									"path": "$['_id']['$oid']"
-								},
-								"sink": {
-									"name": "_id"
 								}
 							},
 							{
@@ -155,11 +152,27 @@
 							},
 							{
 								"source": {
+									"path": "$['deadline']['$date']['$numberLong']"
+								}
+							},
+							{
+								"source": {
 									"path": "$['assignedTo']['$oid']"
-								},
-								"sink": {
-									"name": "userId",
-									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['tasks'][0]['$oid']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['createdAt']['$date']['$numberLong']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['__v']['$numberInt']"
 								}
 							}
 						]
@@ -216,10 +229,6 @@
 							{
 								"source": {
 									"path": "$['_id']['$oid']"
-								},
-								"sink": {
-									"name": "_id",
-									"type": "String"
 								}
 							},
 							{
@@ -252,19 +261,26 @@
 							{
 								"source": {
 									"path": "$['assignedTo']['$oid']"
-								},
-								"sink": {
-									"name": "userId",
-									"type": "String"
 								}
 							},
 							{
 								"source": {
 									"path": "$['project']['$oid']"
-								},
-								"sink": {
-									"name": "projectId",
-									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['createdAt']['$date']['$numberLong']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['__v']['$numberInt']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['deadline']['$date']['$numberLong']"
 								}
 							}
 						]
@@ -272,14 +288,21 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_MONGO_Tasks",
-						"type": "DatasetReference"
+						"referenceName": "DS_MONGO_PARAMETERS",
+						"type": "DatasetReference",
+						"parameters": {
+							"collectionName": "tasks"
+						}
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_SQL_Tasks",
-						"type": "DatasetReference"
+						"referenceName": "DS_SQL_PARAMETERS",
+						"type": "DatasetReference",
+						"parameters": {
+							"schemaName": "raw",
+							"tableName": "tasks"
+						}
 					}
 				]
 			}
