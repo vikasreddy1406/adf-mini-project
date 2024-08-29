@@ -57,7 +57,8 @@
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> projectsAndTasks",
 				"projectsAndTasks aggregate(groupBy(projectName),",
-				"     totalTasks = count(tasksSqlCleaned@id)) ~> aggregate1"
+				"     totalTasks = count(tasksSqlCleaned@id),",
+				"          doneTasks = countIf(taskStatus=='Done')) ~> aggregate1"
 			]
 		}
 	}
