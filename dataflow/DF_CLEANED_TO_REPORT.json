@@ -56,7 +56,8 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> projectsAndTasks",
-				"projectsAndTasks aggregate(groupBy(projectName)) ~> aggregate1"
+				"projectsAndTasks aggregate(groupBy(projectName),",
+				"     totalTasks = count(tasksSqlCleaned@id)) ~> aggregate1"
 			]
 		}
 	}
