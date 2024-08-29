@@ -31,7 +31,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "DS_SQL_Users_Cleaned",
+						"referenceName": "DS_SQL_PARAMETERS",
 						"type": "DatasetReference"
 					},
 					"name": "userCleanedFinalOutput",
@@ -39,14 +39,14 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "DS_SQL_Projects_Cleaned",
+						"referenceName": "DS_SQL_PARAMETERS",
 						"type": "DatasetReference"
 					},
 					"name": "projectsCleanedFinalOutput"
 				},
 				{
 					"dataset": {
-						"referenceName": "DS_SQL_Tasks_Cleaned",
+						"referenceName": "DS_SQL_PARAMETERS",
 						"type": "DatasetReference"
 					},
 					"name": "tasksCleanedData"
