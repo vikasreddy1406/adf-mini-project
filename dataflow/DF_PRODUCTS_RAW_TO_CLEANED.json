@@ -15,10 +15,10 @@
 			"sinks": [],
 			"transformations": [
 				{
-					"name": "window1"
+					"name": "productsDuplicate"
 				},
 				{
-					"name": "filter1"
+					"name": "duplicatedFilter"
 				}
 			],
 			"scriptLines": [
@@ -46,8 +46,8 @@
 				"     format: 'table') ~> productsRaw",
 				"productsRaw window(over(seriesCode),",
 				"     asc(seriesCode, true),",
-				"     RNK = rowNumber()) ~> window1",
-				"window1 filter(ERROR_FUNCTION('')) ~> filter1"
+				"     RNK = rowNumber()) ~> productsDuplicate",
+				"productsDuplicate filter(RNK==1) ~> duplicatedFilter"
 			]
 		}
 	}
