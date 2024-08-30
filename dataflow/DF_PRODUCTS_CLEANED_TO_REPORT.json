@@ -43,6 +43,9 @@
 						"type": "DatasetReference"
 					},
 					"name": "factTable4ProductByCategory"
+				},
+				{
+					"name": "sink1"
 				}
 			],
 			"transformations": [
@@ -80,7 +83,7 @@
 					"name": "productsGroupByBrand"
 				},
 				{
-					"name": "sort1"
+					"name": "sortByTotalProducts"
 				}
 			],
 			"scriptLines": [
@@ -128,7 +131,7 @@
 				"ptoductsGroupByCategory sort(desc(totalProducts, true)) ~> sortByProducts",
 				"productsCleaned aggregate(groupBy(brandName),",
 				"     totalProducts = count(brandName)) ~> productsGroupByBrand",
-				"productsGroupByBrand sort(asc(ERROR_FUNCTION(''), true)) ~> sort1",
+				"productsGroupByBrand sort(desc(totalProducts, true)) ~> sortByTotalProducts",
 				"sortAvgPrices sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
@@ -168,7 +171,11 @@
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> factTable4ProductByCategory"
+				"     errorHandlingOption: 'stopOnFirstError') ~> factTable4ProductByCategory",
+				"sortByTotalProducts sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
