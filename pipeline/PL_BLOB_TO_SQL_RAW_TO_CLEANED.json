@@ -314,7 +314,24 @@
 								"tableName": "table1"
 							},
 							"factTable2BrandName": {
-								"schemaName": "r"
+								"schemaName": "report",
+								"tableName": "table2"
+							},
+							"factTable3DeptName": {
+								"schemaName": "report",
+								"tableName": "table3"
+							},
+							"factTable4ProductByCategory": {
+								"schemaName": "report",
+								"tableName": "table4"
+							},
+							"factTable5ProductsByBrand": {
+								"schemaName": "report",
+								"tableName": "table5"
+							},
+							"factTable6ProductsByDept": {
+								"schemaName": "report",
+								"tableName": "table6"
 							}
 						}
 					},
