@@ -1,6 +1,9 @@
 {
 	"name": "DF_PRODUCTS_CLEANED_TO_REPORT",
 	"properties": {
+		"folder": {
+			"name": "DF_PROJECT_2"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
@@ -90,7 +93,7 @@
 				"     asc(avgMaxPrice, true)) ~> sortAvgPricesByBrandName",
 				"productsCleaned aggregate(groupBy(departmentCode),",
 				"     avgMinPrice = round(avg(minPrice),2),",
-				"          avgMaxPrice = round(avg(minPrice),2)) ~> groupByDepartment",
+				"          avgMaxPrice = round(avg(mPrice),2)) ~> groupByDepartment",
 				"groupByDepartment filter(!isNull(avgMinPrice) && !isNull(avgMaxPrice) ) ~> filterNullValues",
 				"filterNullValues sort(asc(avgMinPrice, true),",
 				"     asc(avgMaxPrice, true)) ~> sortAvgPricesByDept",

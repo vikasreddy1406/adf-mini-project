@@ -1,6 +1,9 @@
 {
 	"name": "DF_CLEANED_TO_REPORT",
 	"properties": {
+		"folder": {
+			"name": "DF_PROJECT_1"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [

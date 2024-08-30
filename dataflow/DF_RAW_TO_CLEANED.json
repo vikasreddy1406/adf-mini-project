@@ -1,6 +1,9 @@
 {
 	"name": "DF_RAW_TO_CLEANED",
 	"properties": {
+		"folder": {
+			"name": "DF_PROJECT_1"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [

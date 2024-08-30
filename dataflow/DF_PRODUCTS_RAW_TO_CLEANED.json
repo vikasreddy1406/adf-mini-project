@@ -1,6 +1,9 @@
 {
 	"name": "DF_PRODUCTS_RAW_TO_CLEANED",
 	"properties": {
+		"folder": {
+			"name": "DF_PROJECT_2"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
