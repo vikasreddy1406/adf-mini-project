@@ -5,14 +5,38 @@
 		"typeProperties": {
 			"sources": [
 				{
+					"dataset": {
+						"referenceName": "DS_SQL_PARAMETERS",
+						"type": "DatasetReference"
+					},
 					"name": "productsCleaned"
 				}
 			],
 			"sinks": [],
 			"transformations": [],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> productsCleaned"
+				"source(output(",
+				"          departmentCode as string,",
+				"          categoryCode as string,",
+				"          categoryName as string,",
+				"          searchCategoryCode as string,",
+				"          seriesCode as string,",
+				"          seriesName as string,",
+				"          brandCode as string,",
+				"          brandUrlCode as string,",
+				"          brandName as string,",
+				"          seriesStatus as string,",
+				"          minDaysToShip as string,",
+				"          maxDaysToShip as string,",
+				"          minPrice as string,",
+				"          maxPrice as string,",
+				"          minPricePerPiece as string,",
+				"          maxPricePerPiece as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> productsCleaned"
 			]
 		}
 	}
