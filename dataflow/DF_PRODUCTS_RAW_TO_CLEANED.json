@@ -16,6 +16,9 @@
 			"transformations": [
 				{
 					"name": "aggregate1"
+				},
+				{
+					"name": "window1"
 				}
 			],
 			"scriptLines": [
@@ -41,8 +44,9 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> productsRaw",
-				"productsRaw aggregate(groupBy(seriesName),",
-				"     each(match(true()), $$ = first($$))) ~> aggregate1"
+				"window1 aggregate(groupBy(seriesName),",
+				"     each(match(true()), $$ = first($$))) ~> aggregate1",
+				"productsRaw window() ~> window1"
 			]
 		}
 	}
