@@ -43,44 +43,6 @@
 								"schemaName": "cleaned",
 								"tableName": "tasks"
 							}
-						},
-						"linkedServiceParameters": {
-							"userRawData": {
-								"schemaLinkedService": {
-									"schemaName": "raw",
-									"tableName": "users"
-								}
-							},
-							"projectsRawData": {
-								"schemaLinkedService": {
-									"schemaName": "raw",
-									"tableName": "projects"
-								}
-							},
-							"tasksRawData": {
-								"schemaLinkedService": {
-									"schemaName": "raw",
-									"tableName": "tasks"
-								}
-							},
-							"userCleanedFinalOutput": {
-								"schemaLinkedService": {
-									"schemaName": "cleaned",
-									"tableName": "users"
-								}
-							},
-							"projectsCleanedFinalOutput": {
-								"schemaLinkedService": {
-									"schemaName": "cleaned",
-									"tableName": "projects"
-								}
-							},
-							"tasksCleanedData": {
-								"schemaLinkedService": {
-									"schemaName": "cleaned",
-									"tableName": "tasks"
-								}
-							}
 						}
 					},
 					"compute": {
