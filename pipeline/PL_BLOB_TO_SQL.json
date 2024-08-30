@@ -196,7 +196,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "minPrice Per Piece",
+									"name": "minPricePerPiece",
 									"physicalType": "nvarchar"
 								}
 							},
@@ -207,8 +207,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Max Price Per Piece",
-									"type": "String",
+									"name": "maxPricePerPiece",
 									"physicalType": "nvarchar"
 								}
 							}
