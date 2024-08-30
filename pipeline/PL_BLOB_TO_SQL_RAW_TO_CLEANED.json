@@ -1,5 +1,5 @@
 {
-	"name": "PL_BLOB_TO_SQL",
+	"name": "PL_BLOB_TO_SQL_RAW_TO_CLEANED",
 	"properties": {
 		"activities": [
 			{
