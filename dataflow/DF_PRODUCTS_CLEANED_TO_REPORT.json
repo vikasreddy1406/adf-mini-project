@@ -1,0 +1,14 @@
+{
+	"name": "DF_PRODUCTS_CLEANED_TO_REPORT",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				""
+			]
+		}
+	}
+}
