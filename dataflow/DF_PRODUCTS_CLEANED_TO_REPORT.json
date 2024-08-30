@@ -65,6 +65,9 @@
 				},
 				{
 					"name": "aggregate1"
+				},
+				{
+					"name": "sort1"
 				}
 			],
 			"scriptLines": [
@@ -109,6 +112,7 @@
 				"     asc(avgMaxPrice, true)) ~> sortAvgPricesByDept",
 				"productsCleaned aggregate(groupBy(categoryName),",
 				"     totalProducts = count(categoryName)) ~> aggregate1",
+				"aggregate1 sort(asc(categoryName, true)) ~> sort1",
 				"sortAvgPrices sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
