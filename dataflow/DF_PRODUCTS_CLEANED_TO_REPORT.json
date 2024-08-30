@@ -42,7 +42,8 @@
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> productsCleaned",
 				"productsCleaned window(over(categoryName),",
-				"     avgMin = avg(minPrice)) ~> window1"
+				"     avgMinPrice = avg(minPrice),",
+				"          avgMaxPrice = avg(maxPrice)) ~> window1"
 			]
 		}
 	}
