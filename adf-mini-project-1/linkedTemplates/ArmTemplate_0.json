@@ -539,6 +539,9 @@
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
+				"folder": {
+					"name": "PL_PROJECT_1"
+				},
 				"annotations": []
 			},
 			"dependsOn": [
@@ -551,6 +554,9 @@
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"folder": {
+					"name": "DF_PROJECT_1"
+				},
 				"type": "MappingDataFlow",
 				"typeProperties": {
 					"sources": [
@@ -684,6 +690,9 @@
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"folder": {
+					"name": "DF_PROJECT_2"
+				},
 				"type": "MappingDataFlow",
 				"typeProperties": {
 					"sources": [
@@ -784,6 +793,9 @@
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"folder": {
+					"name": "DF_PROJECT_1"
+				},
 				"type": "MappingDataFlow",
 				"typeProperties": {
 					"sources": [
@@ -933,6 +945,9 @@
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"folder": {
+					"name": "DF_PROJECT_2"
+				},
 				"type": "MappingDataFlow",
 				"typeProperties": {
 					"sources": [
@@ -958,6 +973,34 @@
 								"type": "DatasetReference"
 							},
 							"name": "factTable2BrandName"
+						},
+						{
+							"dataset": {
+								"referenceName": "DS_SQL_PARAMETERS",
+								"type": "DatasetReference"
+							},
+							"name": "factTable3DeptName"
+						},
+						{
+							"dataset": {
+								"referenceName": "DS_SQL_PARAMETERS",
+								"type": "DatasetReference"
+							},
+							"name": "factTable4ProductByCategory"
+						},
+						{
+							"dataset": {
+								"referenceName": "DS_SQL_PARAMETERS",
+								"type": "DatasetReference"
+							},
+							"name": "factTable5ProductsByBrand"
+						},
+						{
+							"dataset": {
+								"referenceName": "DS_SQL_PARAMETERS",
+								"type": "DatasetReference"
+							},
+							"name": "factTable6ProductsByDept"
 						}
 					],
 					"transformations": [
@@ -975,6 +1018,33 @@
 						},
 						{
 							"name": "sortAvgPricesByBrandName"
+						},
+						{
+							"name": "groupByDepartment"
+						},
+						{
+							"name": "filterNullValues"
+						},
+						{
+							"name": "sortAvgPricesByDept"
+						},
+						{
+							"name": "ptoductsGroupByCategory"
+						},
+						{
+							"name": "sortByProducts"
+						},
+						{
+							"name": "productsGroupByBrand"
+						},
+						{
+							"name": "sortByTotalProducts"
+						},
+						{
+							"name": "productsGroupByDept"
+						},
+						{
+							"name": "sortByToatlProductsDept"
 						}
 					],
 					"scriptLines": [
@@ -1011,6 +1081,21 @@
 						"          avgMaxPrice = round(avg(maxPrice),2)) ~> groupByBrandName",
 						"groupByBrandName sort(asc(avgMinPrice, true),",
 						"     asc(avgMaxPrice, true)) ~> sortAvgPricesByBrandName",
+						"productsCleaned aggregate(groupBy(departmentCode),",
+						"     avgMinPrice = round(avg(minPrice),2),",
+						"          avgMaxPrice = round(avg(maxPrice),2)) ~> groupByDepartment",
+						"groupByDepartment filter(!isNull(avgMinPrice) && !isNull(avgMaxPrice) ) ~> filterNullValues",
+						"filterNullValues sort(asc(avgMinPrice, true),",
+						"     asc(avgMaxPrice, true)) ~> sortAvgPricesByDept",
+						"productsCleaned aggregate(groupBy(categoryName),",
+						"     totalProducts = count(categoryName)) ~> ptoductsGroupByCategory",
+						"ptoductsGroupByCategory sort(desc(totalProducts, true)) ~> sortByProducts",
+						"productsCleaned aggregate(groupBy(brandName),",
+						"     totalProducts = count(brandName)) ~> productsGroupByBrand",
+						"productsGroupByBrand sort(desc(totalProducts, true)) ~> sortByTotalProducts",
+						"productsCleaned aggregate(groupBy(departmentCode),",
+						"     totalProducts = count(departmentCode)) ~> productsGroupByDept",
+						"productsGroupByDept sort(desc(totalProducts, true)) ~> sortByToatlProductsDept",
 						"sortAvgPrices sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     deletable:false,",
@@ -1030,7 +1115,47 @@
 						"     format: 'table',",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError') ~> factTable2BrandName"
+						"     errorHandlingOption: 'stopOnFirstError') ~> factTable2BrandName",
+						"sortAvgPricesByDept sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> factTable3DeptName",
+						"sortByProducts sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> factTable4ProductByCategory",
+						"sortByTotalProducts sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> factTable5ProductsByBrand",
+						"sortByToatlProductsDept sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> factTable6ProductsByDept"
 					]
 				}
 			},
@@ -1321,17 +1446,84 @@
 							},
 							"traceLevel": "Fine"
 						}
+					},
+					{
+						"name": "Cleaned to Reports",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "Raw to Cleaned",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "DF_PRODUCTS_CLEANED_TO_REPORT",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"productsCleaned": {
+										"schemaName": "cleaned",
+										"tableName": "products"
+									},
+									"factTable1Category": {
+										"schemaName": "report",
+										"tableName": "table1"
+									},
+									"factTable2BrandName": {
+										"schemaName": "report",
+										"tableName": "table2"
+									},
+									"factTable3DeptName": {
+										"schemaName": "report",
+										"tableName": "table3"
+									},
+									"factTable4ProductByCategory": {
+										"schemaName": "report",
+										"tableName": "table4"
+									},
+									"factTable5ProductsByBrand": {
+										"schemaName": "report",
+										"tableName": "table5"
+									},
+									"factTable6ProductsByDept": {
+										"schemaName": "report",
+										"tableName": "table6"
+									}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
 					}
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "PL_PROJECT_2"
 				},
 				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_PRODUCTS_LIST')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SQL_PARAMETERS')]",
-				"[concat(variables('factoryId'), '/dataflows/DF_PRODUCTS_RAW_TO_CLEANED')]"
+				"[concat(variables('factoryId'), '/dataflows/DF_PRODUCTS_RAW_TO_CLEANED')]",
+				"[concat(variables('factoryId'), '/dataflows/DF_PRODUCTS_CLEANED_TO_REPORT')]"
 			]
 		},
 		{
@@ -1484,6 +1676,9 @@
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "PL_PROJECT_1"
 				},
 				"annotations": []
 			},
