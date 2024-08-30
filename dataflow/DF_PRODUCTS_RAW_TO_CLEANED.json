@@ -42,7 +42,7 @@
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> productsRaw",
 				"productsRaw aggregate(groupBy(seriesName),",
-				"     {$$} = first($$)) ~> aggregate1"
+				"     each(match(), $$ = first($$))) ~> aggregate1"
 			]
 		}
 	}
