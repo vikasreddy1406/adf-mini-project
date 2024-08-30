@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-mini-project-1"
 		},
+		"LS_BLOB_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_BLOB'"
+		},
 		"LS_MONGO_TO_SQL_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_MONGO_TO_SQL'"
@@ -57,6 +61,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"LS_BLOB_connectionString": {
+						"value": "[parameters('LS_BLOB_connectionString')]"
 					},
 					"LS_MONGO_TO_SQL_connectionString": {
 						"value": "[parameters('LS_MONGO_TO_SQL_connectionString')]"

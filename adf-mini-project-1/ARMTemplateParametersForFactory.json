@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "adf-mini-project-1"
 		},
+		"LS_BLOB_connectionString": {
+			"value": ""
+		},
 		"LS_MONGO_TO_SQL_connectionString": {
 			"value": ""
 		},

@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-mini-project-1"
 		},
+		"LS_BLOB_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_BLOB'"
+		},
 		"LS_MONGO_TO_SQL_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_MONGO_TO_SQL'"
@@ -36,6 +40,302 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/PL_BLOB_TO_SQL_RAW_TO_CLEANED')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy products list to sql",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "DROP TABLE IF EXISTS RAW.PRODUCTS",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Department Code",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "departmentCode",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Category Code",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "categoryCode",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Category Name",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "categoryName",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Search Category Code",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "searchCategoryCode",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Series Code",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "seriesCode",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Series Name",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "seriesName",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Brand Code",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "brandCode",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Brand URL Code",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "brandUrlCode",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Brand Name",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "brandName",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Series Status",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "seriesStatus",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Min Days to Ship",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "minDaysToShip",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Max Days to Ship",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "maxDaysToShip",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Min Price",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "minPrice",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Max Price",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "maxPrice",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Min Price Per Piece",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "minPricePerPiece",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Max Price Per Piece",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "maxPricePerPiece",
+											"physicalType": "nvarchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_PRODUCTS_LIST",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_SQL_PARAMETERS",
+								"type": "DatasetReference",
+								"parameters": {
+									"schemaName": "raw",
+									"tableName": "products"
+								}
+							}
+						]
+					},
+					{
+						"name": "Raw to Cleaned",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "Copy products list to sql",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "DF_PRODUCTS_RAW_TO_CLEANED",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"productsRaw": {
+										"schemaName": "raw",
+										"tableName": "products"
+									},
+									"productsCleaned": {
+										"schemaName": "cleaned",
+										"tableName": "products"
+									}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_PRODUCTS_LIST')]",
+				"[concat(variables('factoryId'), '/datasets/DS_SQL_PARAMETERS')]",
+				"[concat(variables('factoryId'), '/dataflows/DF_PRODUCTS_RAW_TO_CLEANED')]"
+			]
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/PL_MONGO_TO_SQL')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
@@ -525,6 +825,97 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DS_PRODUCTS_LIST')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_BLOB",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": "misumi_data",
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "misumi_data.xlsx",
+						"container": "mini-project"
+					},
+					"firstRowAsHeader": true
+				},
+				"schema": [
+					{
+						"name": "Department Code",
+						"type": "String"
+					},
+					{
+						"name": "Category Code",
+						"type": "String"
+					},
+					{
+						"name": "Category Name",
+						"type": "String"
+					},
+					{
+						"name": "Search Category Code",
+						"type": "String"
+					},
+					{
+						"name": "Series Code",
+						"type": "String"
+					},
+					{
+						"name": "Series Name",
+						"type": "String"
+					},
+					{
+						"name": "Brand Code",
+						"type": "String"
+					},
+					{
+						"name": "Brand URL Code",
+						"type": "String"
+					},
+					{
+						"name": "Brand Name",
+						"type": "String"
+					},
+					{
+						"name": "Series Status",
+						"type": "String"
+					},
+					{
+						"name": "Min Days to Ship",
+						"type": "String"
+					},
+					{
+						"name": "Max Days to Ship",
+						"type": "String"
+					},
+					{
+						"name": "Min Price",
+						"type": "String"
+					},
+					{
+						"name": "Max Price",
+						"type": "String"
+					},
+					{
+						"name": "Min Price Per Piece",
+						"type": "String"
+					},
+					{
+						"name": "Max Price Per Piece",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_BLOB')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DS_SQL_PARAMETERS')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -558,6 +949,19 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_SQL')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_BLOB')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_BLOB_connectionString')]"
+				}
+			},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/LS_MONGO_TO_SQL')]",
@@ -730,6 +1134,106 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DF_PRODUCTS_RAW_TO_CLEANED')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "DS_SQL_PARAMETERS",
+								"type": "DatasetReference"
+							},
+							"name": "productsRaw"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "DS_SQL_PARAMETERS",
+								"type": "DatasetReference"
+							},
+							"name": "productsCleaned"
+						}
+					],
+					"transformations": [
+						{
+							"name": "productsDuplicate"
+						},
+						{
+							"name": "duplicatedFilter"
+						},
+						{
+							"name": "duplicatedRemoved"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          departmentCode as string,",
+						"          categoryCode as string,",
+						"          categoryName as string,",
+						"          searchCategoryCode as string,",
+						"          seriesCode as string,",
+						"          seriesName as string,",
+						"          brandCode as string,",
+						"          brandUrlCode as string,",
+						"          brandName as string,",
+						"          seriesStatus as string,",
+						"          minDaysToShip as string,",
+						"          maxDaysToShip as string,",
+						"          minPrice as string,",
+						"          maxPrice as string,",
+						"          minPricePerPiece as string,",
+						"          maxPricePerPiece as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> productsRaw",
+						"productsRaw window(over(seriesCode),",
+						"     asc(seriesCode, true),",
+						"     RNK = rowNumber()) ~> productsDuplicate",
+						"productsDuplicate filter(RNK==1) ~> duplicatedFilter",
+						"duplicatedFilter select(mapColumn(",
+						"          departmentCode,",
+						"          categoryCode,",
+						"          categoryName,",
+						"          searchCategoryCode,",
+						"          seriesCode,",
+						"          seriesName,",
+						"          brandCode,",
+						"          brandUrlCode,",
+						"          brandName,",
+						"          seriesStatus,",
+						"          minDaysToShip,",
+						"          maxDaysToShip,",
+						"          minPrice,",
+						"          maxPrice,",
+						"          minPricePerPiece,",
+						"          maxPricePerPiece",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> duplicatedRemoved",
+						"duplicatedRemoved sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> productsCleaned"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_SQL_PARAMETERS')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DF_RAW_TO_CLEANED')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -871,6 +1375,116 @@
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
 						"     errorHandlingOption: 'stopOnFirstError') ~> tasksCleanedData"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_SQL_PARAMETERS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DF_PRODUCTS_CLEANED_TO_REPORT')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "DS_SQL_PARAMETERS",
+								"type": "DatasetReference"
+							},
+							"name": "productsCleaned"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "DS_SQL_PARAMETERS",
+								"type": "DatasetReference"
+							},
+							"name": "factTable1Category"
+						},
+						{
+							"dataset": {
+								"referenceName": "DS_SQL_PARAMETERS",
+								"type": "DatasetReference"
+							},
+							"name": "factTable2BrandName"
+						}
+					],
+					"transformations": [
+						{
+							"name": "groupByCategory"
+						},
+						{
+							"name": "filterNullPrices"
+						},
+						{
+							"name": "sortAvgPrices"
+						},
+						{
+							"name": "groupByBrandName"
+						},
+						{
+							"name": "sortAvgPricesByBrandName"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          departmentCode as string,",
+						"          categoryCode as string,",
+						"          categoryName as string,",
+						"          searchCategoryCode as string,",
+						"          seriesCode as string,",
+						"          seriesName as string,",
+						"          brandCode as string,",
+						"          brandUrlCode as string,",
+						"          brandName as string,",
+						"          seriesStatus as string,",
+						"          minDaysToShip as double,",
+						"          maxDaysToShip as double,",
+						"          minPrice as double,",
+						"          maxPrice as double,",
+						"          minPricePerPiece as double,",
+						"          maxPricePerPiece as double",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> productsCleaned",
+						"productsCleaned aggregate(groupBy(categoryName),",
+						"     avgMinPrice = round(avg(minPrice),2),",
+						"          avgMaxPrice = round(avg(maxPrice),2)) ~> groupByCategory",
+						"groupByCategory filter(!isNull(avgMinPrice) && !isNull(avgMaxPrice) ) ~> filterNullPrices",
+						"filterNullPrices sort(asc(avgMinPrice, true),",
+						"     asc(avgMaxPrice, true)) ~> sortAvgPrices",
+						"productsCleaned aggregate(groupBy(brandName),",
+						"     avgMinPrice = round(avg(minPrice),2),",
+						"          avgMaxPrice = round(avg(maxPrice),2)) ~> groupByBrandName",
+						"groupByBrandName sort(asc(avgMinPrice, true),",
+						"     asc(avgMaxPrice, true)) ~> sortAvgPricesByBrandName",
+						"sortAvgPrices sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> factTable1Category",
+						"sortAvgPricesByBrandName sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> factTable2BrandName"
 					]
 				}
 			},
