@@ -258,6 +258,20 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DF_PRODUCTS_RAW_TO_CLEANED",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"productsRaw": {
+								"schemaName": "raw",
+								"tableName": "products"
+							},
+							"productsCleaned": {
+								"schemaName": "cleaned",
+								"tableName": "products"
+							}
+						}
+					},
 					"compute": {
 						"coreCount": 8,
 						"computeType": "General"
