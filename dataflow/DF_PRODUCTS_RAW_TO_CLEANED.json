@@ -48,7 +48,8 @@
 				"          searchCategoryCode = first(searchCategoryCode),",
 				"          seriesCode = first(seriesCode),",
 				"          brandCode = first(brandCode),",
-				"          brandUrlCode = ERROR_FUNCTION('')) ~> aggregate1"
+				"          brandUrlCode = first(brandUrlCode),",
+				"          brandName = ERROR_FUNCTION('')) ~> aggregate1"
 			]
 		}
 	}
