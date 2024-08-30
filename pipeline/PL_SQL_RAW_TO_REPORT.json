@@ -140,6 +140,9 @@
 				}
 			}
 		],
+		"folder": {
+			"name": "PL_PROJECT_1"
+		},
 		"annotations": []
 	}
 }

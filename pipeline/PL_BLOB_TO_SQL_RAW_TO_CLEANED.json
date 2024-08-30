@@ -278,6 +278,9 @@
 				}
 			}
 		],
+		"folder": {
+			"name": "PL_PROJECT_2"
+		},
 		"annotations": []
 	}
 }
