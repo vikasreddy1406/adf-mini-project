@@ -42,8 +42,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Department Code",
-									"type": "String",
+									"name": "departmentCode",
 									"physicalType": "nvarchar"
 								}
 							},
@@ -54,8 +53,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Category Code",
-									"type": "String",
+									"name": "categoryCode",
 									"physicalType": "nvarchar"
 								}
 							},
@@ -66,8 +64,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Category Name",
-									"type": "String",
+									"name": "categoryName",
 									"physicalType": "nvarchar"
 								}
 							},
@@ -78,8 +75,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Search Category Code",
-									"type": "String",
+									"name": "searchCategoryCode",
 									"physicalType": "nvarchar"
 								}
 							},
@@ -90,8 +86,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Series Code",
-									"type": "String",
+									"name": "seriesCode",
 									"physicalType": "nvarchar"
 								}
 							},
@@ -102,8 +97,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Series Name",
-									"type": "String",
+									"name": "seriesName",
 									"physicalType": "nvarchar"
 								}
 							},
@@ -114,8 +108,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Brand Code",
-									"type": "String",
+									"name": "brandCode",
 									"physicalType": "nvarchar"
 								}
 							},
@@ -126,8 +119,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Brand URL Code",
-									"type": "String",
+									"name": "brand URL Code",
 									"physicalType": "nvarchar"
 								}
 							},
