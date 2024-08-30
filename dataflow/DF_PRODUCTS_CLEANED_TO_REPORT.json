@@ -19,6 +19,9 @@
 				},
 				{
 					"name": "select1"
+				},
+				{
+					"name": "aggregate1"
 				}
 			],
 			"scriptLines": [
@@ -44,7 +47,7 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> productsCleaned",
-				"productsCleaned window(over(categoryName),",
+				"aggregate1 window(over(categoryName),",
 				"     avgMinPrice = round(avg(minPrice),2),",
 				"          avgMaxPrice = round(avg(maxPrice),2)) ~> window1",
 				"window1 select(mapColumn(",
@@ -55,7 +58,8 @@
 				"          avgMaxPrice",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1"
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"productsCleaned aggregate(groupBy(categoryName)) ~> aggregate1"
 			]
 		}
 	}
