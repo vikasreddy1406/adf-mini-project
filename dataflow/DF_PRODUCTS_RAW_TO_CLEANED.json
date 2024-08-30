@@ -43,7 +43,8 @@
 				"     format: 'table') ~> productsRaw",
 				"productsRaw aggregate(groupBy({Series Name}),",
 				"     {Department Code} = first({Department Code}),",
-				"          {Category Code} = ERROR_FUNCTION('')) ~> aggregate1"
+				"          {Category Code} = first({Category Code}),",
+				"          {Category Name} = first({Category Name})) ~> aggregate1"
 			]
 		}
 	}
