@@ -21,7 +21,7 @@
 					"name": "filterNullPrices"
 				},
 				{
-					"name": "sort1"
+					"name": "sortAvgPrices"
 				}
 			],
 			"scriptLines": [
@@ -51,7 +51,8 @@
 				"     avgMinPrice = round(avg(minPrice),2),",
 				"          avgMaxPrice = round(avg(maxPrice),2)) ~> groupByCategory",
 				"groupByCategory filter(!isNull(avgMinPrice) && !isNull(avgMaxPrice) ) ~> filterNullPrices",
-				"filterNullPrices sort(asc(ERROR_FUNCTION(''), true)) ~> sort1"
+				"filterNullPrices sort(asc(avgMinPrice, true),",
+				"     asc(avgMaxPrice, true)) ~> sortAvgPrices"
 			]
 		}
 	}
