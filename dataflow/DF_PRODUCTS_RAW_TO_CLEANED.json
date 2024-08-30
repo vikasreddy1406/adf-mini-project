@@ -44,7 +44,8 @@
 				"productsRaw aggregate(groupBy(seriesName),",
 				"     departmentCode = first(departmentCode),",
 				"          categoryCode = first(categoryCode),",
-				"          categoryName = ERROR_FUNCTION('')) ~> aggregate1"
+				"          categoryName = first(categoryName),",
+				"          column1 = ERROR_FUNCTION('')) ~> aggregate1"
 			]
 		}
 	}
