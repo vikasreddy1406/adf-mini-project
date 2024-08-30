@@ -62,6 +62,9 @@
 				},
 				{
 					"name": "sortAvgPricesByDept"
+				},
+				{
+					"name": "aggregate1"
 				}
 			],
 			"scriptLines": [
@@ -104,6 +107,7 @@
 				"groupByDepartment filter(!isNull(avgMinPrice) && !isNull(avgMaxPrice) ) ~> filterNullValues",
 				"filterNullValues sort(asc(avgMinPrice, true),",
 				"     asc(avgMaxPrice, true)) ~> sortAvgPricesByDept",
+				"productsCleaned aggregate(groupBy(categoryName)) ~> aggregate1",
 				"sortAvgPrices sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
