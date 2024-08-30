@@ -41,7 +41,7 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> productsRaw",
-				"productsRaw aggregate() ~> aggregate1"
+				"productsRaw aggregate(groupBy(seriesName)) ~> aggregate1"
 			]
 		}
 	}
