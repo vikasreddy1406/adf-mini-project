@@ -18,7 +18,10 @@
 						"referenceName": "DS_SQL_PARAMETERS",
 						"type": "DatasetReference"
 					},
-					"name": "factTable1"
+					"name": "factTable1Category"
+				},
+				{
+					"name": "sink1"
 				}
 			],
 			"transformations": [
@@ -33,6 +36,9 @@
 				},
 				{
 					"name": "groupByBrandName"
+				},
+				{
+					"name": "sortAvgPricesByBrandName"
 				}
 			],
 			"scriptLines": [
@@ -67,6 +73,8 @@
 				"productsCleaned aggregate(groupBy(brandName),",
 				"     avgMinPrice = round(avg(minPrice),2),",
 				"          avgMaxPrice = round(avg(maxPrice),2)) ~> groupByBrandName",
+				"groupByBrandName sort(asc(avgMinPrice, true),",
+				"     asc(avgMaxPrice, true)) ~> sortAvgPricesByBrandName",
 				"sortAvgPrices sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
@@ -76,7 +84,11 @@
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> factTable1"
+				"     errorHandlingOption: 'stopOnFirstError') ~> factTable1Category",
+				"sortAvgPricesByBrandName sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
