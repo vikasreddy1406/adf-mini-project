@@ -12,7 +12,11 @@
 					"name": "productsCleaned"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "groupByCategory"
@@ -52,7 +56,11 @@
 				"          avgMaxPrice = round(avg(maxPrice),2)) ~> groupByCategory",
 				"groupByCategory filter(!isNull(avgMinPrice) && !isNull(avgMaxPrice) ) ~> filterNullPrices",
 				"filterNullPrices sort(asc(avgMinPrice, true),",
-				"     asc(avgMaxPrice, true)) ~> sortAvgPrices"
+				"     asc(avgMaxPrice, true)) ~> sortAvgPrices",
+				"sortAvgPrices sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
