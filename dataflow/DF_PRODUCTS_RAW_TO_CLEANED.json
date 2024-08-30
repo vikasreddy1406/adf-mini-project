@@ -19,6 +19,9 @@
 				},
 				{
 					"name": "duplicatedFilter"
+				},
+				{
+					"name": "duplicatedRemoved"
 				}
 			],
 			"scriptLines": [
@@ -47,7 +50,27 @@
 				"productsRaw window(over(seriesCode),",
 				"     asc(seriesCode, true),",
 				"     RNK = rowNumber()) ~> productsDuplicate",
-				"productsDuplicate filter(RNK==1) ~> duplicatedFilter"
+				"productsDuplicate filter(RNK==1) ~> duplicatedFilter",
+				"duplicatedFilter select(mapColumn(",
+				"          departmentCode,",
+				"          categoryCode,",
+				"          categoryName,",
+				"          searchCategoryCode,",
+				"          seriesCode,",
+				"          seriesName,",
+				"          brandCode,",
+				"          brandUrlCode,",
+				"          brandName,",
+				"          seriesStatus,",
+				"          minDaysToShip,",
+				"          maxDaysToShip,",
+				"          minPrice,",
+				"          maxPrice,",
+				"          minPricePerPiece,",
+				"          maxPricePerPiece",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> duplicatedRemoved"
 			]
 		}
 	}
