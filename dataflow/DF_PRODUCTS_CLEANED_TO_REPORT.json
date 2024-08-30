@@ -43,6 +43,9 @@
 				},
 				{
 					"name": "sortAvgPricesByBrandName"
+				},
+				{
+					"name": "groupByDepartment"
 				}
 			],
 			"scriptLines": [
@@ -79,6 +82,7 @@
 				"          avgMaxPrice = round(avg(maxPrice),2)) ~> groupByBrandName",
 				"groupByBrandName sort(asc(avgMinPrice, true),",
 				"     asc(avgMaxPrice, true)) ~> sortAvgPricesByBrandName",
+				"productsCleaned aggregate(groupBy(departmentCode)) ~> groupByDepartment",
 				"sortAvgPrices sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
