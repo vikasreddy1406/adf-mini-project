@@ -16,6 +16,9 @@
 			"transformations": [
 				{
 					"name": "window1"
+				},
+				{
+					"name": "select1"
 				}
 			],
 			"scriptLines": [
@@ -43,7 +46,29 @@
 				"     format: 'table') ~> productsCleaned",
 				"productsCleaned window(over(categoryName),",
 				"     avgMinPrice = avg(minPrice),",
-				"          avgMaxPrice = avg(maxPrice)) ~> window1"
+				"          avgMaxPrice = avg(maxPrice)) ~> window1",
+				"window1 select(mapColumn(",
+				"          departmentCode,",
+				"          categoryCode,",
+				"          categoryName,",
+				"          searchCategoryCode,",
+				"          seriesCode,",
+				"          seriesName,",
+				"          brandCode,",
+				"          brandUrlCode,",
+				"          brandName,",
+				"          seriesStatus,",
+				"          minDaysToShip,",
+				"          maxDaysToShip,",
+				"          minPrice,",
+				"          maxPrice,",
+				"          minPricePerPiece,",
+				"          maxPricePerPiece,",
+				"          avgMinPrice,",
+				"          avgMaxPrice",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1"
 			]
 		}
 	}
