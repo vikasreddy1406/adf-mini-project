@@ -49,7 +49,7 @@
 				"          seriesCode = first(seriesCode),",
 				"          brandCode = first(brandCode),",
 				"          brandUrlCode = first(brandUrlCode),",
-				"          brandName = ERROR_FUNCTION('')) ~> aggregate1"
+				"          brandName = first(brandName)) ~> aggregate1"
 			]
 		}
 	}
