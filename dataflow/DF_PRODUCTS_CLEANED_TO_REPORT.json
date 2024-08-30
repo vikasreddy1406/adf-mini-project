@@ -14,7 +14,11 @@
 			],
 			"sinks": [
 				{
-					"name": "sink1"
+					"dataset": {
+						"referenceName": "DS_SQL_PARAMETERS",
+						"type": "DatasetReference"
+					},
+					"name": "factTable1"
 				}
 			],
 			"transformations": [
@@ -59,8 +63,14 @@
 				"     asc(avgMaxPrice, true)) ~> sortAvgPrices",
 				"sortAvgPrices sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> factTable1"
 			]
 		}
 	}
