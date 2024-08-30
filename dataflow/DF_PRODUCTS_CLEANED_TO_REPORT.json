@@ -59,7 +59,9 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"productsCleaned aggregate(groupBy(categoryName)) ~> aggregate1"
+				"productsCleaned aggregate(groupBy(categoryName),",
+				"     avgMinPrice = round(avg(minPrice),2),",
+				"          avgMaxPrice = round(avg(maxPrice),2)) ~> aggregate1"
 			]
 		}
 	}
