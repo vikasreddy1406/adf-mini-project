@@ -34,6 +34,200 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Department Code",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Department Code",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Category Code",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Category Code",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Category Name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Category Name",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Search Category Code",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Search Category Code",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Series Code",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Series Code",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Series Name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Series Name",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Brand Code",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Brand Code",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Brand URL Code",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Brand URL Code",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Brand Name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Brand Name",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Series Status",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Series Status",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Min Days to Ship",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Min Days to Ship",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Max Days to Ship",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Max Days to Ship",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Min Price",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Min Price",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Max Price",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Max Price",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Min Price Per Piece",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Min Price Per Piece",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Max Price Per Piece",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Max Price Per Piece",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
