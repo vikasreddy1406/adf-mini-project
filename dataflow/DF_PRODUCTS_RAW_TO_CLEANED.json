@@ -45,7 +45,7 @@
 				"     departmentCode = first(departmentCode),",
 				"          categoryCode = first(categoryCode),",
 				"          categoryName = first(categoryName),",
-				"          column1 = ERROR_FUNCTION('')) ~> aggregate1"
+				"          searchCategoryCode = ERROR_FUNCTION('')) ~> aggregate1"
 			]
 		}
 	}
