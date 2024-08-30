@@ -64,7 +64,7 @@
 					"name": "sortAvgPricesByDept"
 				},
 				{
-					"name": "aggregate1"
+					"name": "ptoductsGroupByCategory"
 				},
 				{
 					"name": "sort1"
@@ -111,8 +111,8 @@
 				"filterNullValues sort(asc(avgMinPrice, true),",
 				"     asc(avgMaxPrice, true)) ~> sortAvgPricesByDept",
 				"productsCleaned aggregate(groupBy(categoryName),",
-				"     totalProducts = count(categoryName)) ~> aggregate1",
-				"aggregate1 sort(asc(categoryName, true)) ~> sort1",
+				"     totalProducts = count(categoryName)) ~> ptoductsGroupByCategory",
+				"ptoductsGroupByCategory sort(desc(totalProducts, true)) ~> sort1",
 				"sortAvgPrices sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
