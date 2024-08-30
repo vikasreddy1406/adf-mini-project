@@ -18,7 +18,10 @@
 					"name": "groupByCategory"
 				},
 				{
-					"name": "filter1"
+					"name": "filterNullPrices"
+				},
+				{
+					"name": "sort1"
 				}
 			],
 			"scriptLines": [
@@ -47,7 +50,8 @@
 				"productsCleaned aggregate(groupBy(categoryName),",
 				"     avgMinPrice = round(avg(minPrice),2),",
 				"          avgMaxPrice = round(avg(maxPrice),2)) ~> groupByCategory",
-				"groupByCategory filter(ERROR_FUNCTION('')) ~> filter1"
+				"groupByCategory filter(!isNull(avgMinPrice) && !isNull(avgMaxPrice) ) ~> filterNullPrices",
+				"filterNullPrices sort(asc(ERROR_FUNCTION(''), true)) ~> sort1"
 			]
 		}
 	}
