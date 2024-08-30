@@ -45,7 +45,7 @@
 				"     {Department Code} = first({Department Code}),",
 				"          {Category Code} = first({Category Code}),",
 				"          {Category Name} = first({Category Name}),",
-				"          column1 = ERROR_FUNCTION('')) ~> aggregate1"
+				"          {Search Category Code} = first({Search Category Code})) ~> aggregate1"
 			]
 		}
 	}
