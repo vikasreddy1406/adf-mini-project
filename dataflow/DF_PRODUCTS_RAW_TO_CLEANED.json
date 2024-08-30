@@ -15,10 +15,10 @@
 			"sinks": [],
 			"transformations": [
 				{
-					"name": "aggregate1"
+					"name": "window1"
 				},
 				{
-					"name": "window1"
+					"name": "filter1"
 				}
 			],
 			"scriptLines": [
@@ -44,11 +44,10 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> productsRaw",
-				"window1 aggregate(groupBy(seriesName),",
-				"     each(match(true()), $$ = first($$))) ~> aggregate1",
 				"productsRaw window(over(seriesCode),",
 				"     asc(seriesCode, true),",
-				"     RNK = rowNumber()) ~> window1"
+				"     RNK = rowNumber()) ~> window1",
+				"window1 filter(ERROR_FUNCTION('')) ~> filter1"
 			]
 		}
 	}
