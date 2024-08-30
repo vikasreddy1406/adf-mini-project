@@ -15,13 +15,10 @@
 			"sinks": [],
 			"transformations": [
 				{
-					"name": "window1"
+					"name": "groupByCategory"
 				},
 				{
-					"name": "select1"
-				},
-				{
-					"name": "aggregate1"
+					"name": "filter1"
 				}
 			],
 			"scriptLines": [
@@ -47,21 +44,10 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> productsCleaned",
-				"aggregate1 window(over(categoryName),",
-				"     avgMinPrice = round(avg(minPrice),2),",
-				"          avgMaxPrice = round(avg(maxPrice),2)) ~> window1",
-				"window1 select(mapColumn(",
-				"          categoryName,",
-				"          minPrice,",
-				"          maxPrice,",
-				"          avgMinPrice,",
-				"          avgMaxPrice",
-				"     ),",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1",
 				"productsCleaned aggregate(groupBy(categoryName),",
 				"     avgMinPrice = round(avg(minPrice),2),",
-				"          avgMaxPrice = round(avg(maxPrice),2)) ~> aggregate1"
+				"          avgMaxPrice = round(avg(maxPrice),2)) ~> groupByCategory",
+				"groupByCategory filter(ERROR_FUNCTION('')) ~> filter1"
 			]
 		}
 	}
