@@ -36,6 +36,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "factTable3DeptName"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_SQL_PARAMETERS",
+						"type": "DatasetReference"
+					},
+					"name": "factTable3ProductByCategory"
 				}
 			],
 			"transformations": [
@@ -67,7 +74,7 @@
 					"name": "ptoductsGroupByCategory"
 				},
 				{
-					"name": "sort1"
+					"name": "sortByProducts"
 				}
 			],
 			"scriptLines": [
@@ -112,7 +119,7 @@
 				"     asc(avgMaxPrice, true)) ~> sortAvgPricesByDept",
 				"productsCleaned aggregate(groupBy(categoryName),",
 				"     totalProducts = count(categoryName)) ~> ptoductsGroupByCategory",
-				"ptoductsGroupByCategory sort(desc(totalProducts, true)) ~> sort1",
+				"ptoductsGroupByCategory sort(desc(totalProducts, true)) ~> sortByProducts",
 				"sortAvgPrices sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
@@ -142,7 +149,17 @@
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> factTable3DeptName"
+				"     errorHandlingOption: 'stopOnFirstError') ~> factTable3DeptName",
+				"sortByProducts sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> factTable3ProductByCategory"
 			]
 		}
 	}
