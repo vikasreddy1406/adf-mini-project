@@ -46,7 +46,8 @@
 				"     format: 'table') ~> productsRaw",
 				"window1 aggregate(groupBy(seriesName),",
 				"     each(match(true()), $$ = first($$))) ~> aggregate1",
-				"productsRaw window() ~> window1"
+				"productsRaw window(over(seriesCode),",
+				"     RNK = ERROR_FUNCTION('')) ~> window1"
 			]
 		}
 	}
