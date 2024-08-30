@@ -88,6 +88,9 @@
 				},
 				{
 					"name": "sortByTotalProducts"
+				},
+				{
+					"name": "productsGroupByDept"
 				}
 			],
 			"scriptLines": [
@@ -136,6 +139,8 @@
 				"productsCleaned aggregate(groupBy(brandName),",
 				"     totalProducts = count(brandName)) ~> productsGroupByBrand",
 				"productsGroupByBrand sort(desc(totalProducts, true)) ~> sortByTotalProducts",
+				"productsCleaned aggregate(groupBy(departmentCode),",
+				"     totalProducts = ERROR_FUNCTION('count(*')) ~> productsGroupByDept",
 				"sortAvgPrices sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
