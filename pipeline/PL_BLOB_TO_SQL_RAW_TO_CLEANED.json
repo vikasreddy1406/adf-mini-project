@@ -301,6 +301,23 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DF_PRODUCTS_CLEANED_TO_REPORT",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"productsCleaned": {
+								"schemaName": "cleaned",
+								"tableName": "products"
+							},
+							"factTable1Category": {
+								"schemaName": "report",
+								"tableName": "table1"
+							},
+							"factTable2BrandName": {
+								"schemaName": "r"
+							}
+						}
+					},
 					"compute": {
 						"coreCount": 8,
 						"computeType": "General"
