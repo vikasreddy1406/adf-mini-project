@@ -140,7 +140,7 @@
 				"     totalProducts = count(brandName)) ~> productsGroupByBrand",
 				"productsGroupByBrand sort(desc(totalProducts, true)) ~> sortByTotalProducts",
 				"productsCleaned aggregate(groupBy(departmentCode),",
-				"     totalProducts = ERROR_FUNCTION('count(*')) ~> productsGroupByDept",
+				"     totalProducts = count(departmentCode)) ~> productsGroupByDept",
 				"sortAvgPrices sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
