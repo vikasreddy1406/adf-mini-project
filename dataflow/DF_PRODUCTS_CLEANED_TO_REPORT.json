@@ -10,13 +10,6 @@
 						"type": "DatasetReference"
 					},
 					"name": "productsCleaned"
-				},
-				{
-					"dataset": {
-						"referenceName": "DS_SQL_PARAMETERS",
-						"type": "DatasetReference"
-					},
-					"name": "source1"
 				}
 			],
 			"sinks": [
@@ -62,10 +55,6 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> productsCleaned",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> source1",
 				"productsCleaned aggregate(groupBy(categoryName),",
 				"     avgMinPrice = round(avg(minPrice),2),",
 				"          avgMaxPrice = round(avg(maxPrice),2)) ~> groupByCategory",
