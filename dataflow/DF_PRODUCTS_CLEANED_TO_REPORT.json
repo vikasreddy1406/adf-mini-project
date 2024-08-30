@@ -13,7 +13,11 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "window1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          departmentCode as string,",
@@ -36,7 +40,8 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> productsCleaned"
+				"     format: 'table') ~> productsCleaned",
+				"productsCleaned window(over(categoryName)) ~> window1"
 			]
 		}
 	}
