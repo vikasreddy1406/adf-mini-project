@@ -41,15 +41,7 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> productsRaw",
-				"productsRaw aggregate(groupBy(seriesName),",
-				"     departmentCode = departmentCode,",
-				"          categoryCode = first(categoryCode),",
-				"          categoryName = first(categoryName),",
-				"          searchCategoryCode = first(searchCategoryCode),",
-				"          seriesCode = first(seriesCode),",
-				"          brandCode = first(brandCode),",
-				"          brandUrlCode = first(brandUrlCode),",
-				"          brandName = first(brandName)) ~> aggregate1"
+				"productsRaw aggregate(groupBy(seriesName)) ~> aggregate1"
 			]
 		}
 	}
