@@ -41,7 +41,8 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> productsCleaned",
-				"productsCleaned window(over(categoryName)) ~> window1"
+				"productsCleaned window(over(categoryName),",
+				"     avgMin = avg(minPrice)) ~> window1"
 			]
 		}
 	}
