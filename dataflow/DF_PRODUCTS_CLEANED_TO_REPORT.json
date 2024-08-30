@@ -30,6 +30,9 @@
 				},
 				{
 					"name": "sortAvgPrices"
+				},
+				{
+					"name": "groupByBrandName"
 				}
 			],
 			"scriptLines": [
@@ -61,6 +64,7 @@
 				"groupByCategory filter(!isNull(avgMinPrice) && !isNull(avgMaxPrice) ) ~> filterNullPrices",
 				"filterNullPrices sort(asc(avgMinPrice, true),",
 				"     asc(avgMaxPrice, true)) ~> sortAvgPrices",
+				"productsCleaned aggregate() ~> groupByBrandName",
 				"sortAvgPrices sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
