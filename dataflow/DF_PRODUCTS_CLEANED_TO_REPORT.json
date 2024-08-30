@@ -29,6 +29,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "factTable2BrandName"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_SQL_PARAMETERS",
+						"type": "DatasetReference"
+					},
+					"name": "factTable3DeptName"
 				}
 			],
 			"transformations": [
@@ -93,7 +100,7 @@
 				"     asc(avgMaxPrice, true)) ~> sortAvgPricesByBrandName",
 				"productsCleaned aggregate(groupBy(departmentCode),",
 				"     avgMinPrice = round(avg(minPrice),2),",
-				"          avgMaxPrice = round(avg(mPrice),2)) ~> groupByDepartment",
+				"          avgMaxPrice = round(avg(maxPrice),2)) ~> groupByDepartment",
 				"groupByDepartment filter(!isNull(avgMinPrice) && !isNull(avgMaxPrice) ) ~> filterNullValues",
 				"filterNullValues sort(asc(avgMinPrice, true),",
 				"     asc(avgMaxPrice, true)) ~> sortAvgPricesByDept",
@@ -116,7 +123,17 @@
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> factTable2BrandName"
+				"     errorHandlingOption: 'stopOnFirstError') ~> factTable2BrandName",
+				"sortAvgPricesByDept sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> factTable3DeptName"
 			]
 		}
 	}
