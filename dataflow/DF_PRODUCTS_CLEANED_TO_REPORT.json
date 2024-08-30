@@ -42,7 +42,7 @@
 						"referenceName": "DS_SQL_PARAMETERS",
 						"type": "DatasetReference"
 					},
-					"name": "factTable3ProductByCategory"
+					"name": "factTable4ProductByCategory"
 				}
 			],
 			"transformations": [
@@ -159,7 +159,7 @@
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> factTable3ProductByCategory"
+				"     errorHandlingOption: 'stopOnFirstError') ~> factTable4ProductByCategory"
 			]
 		}
 	}
