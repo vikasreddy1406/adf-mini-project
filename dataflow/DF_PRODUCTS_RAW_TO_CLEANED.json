@@ -47,7 +47,7 @@
 				"          categoryName = first(categoryName),",
 				"          searchCategoryCode = first(searchCategoryCode),",
 				"          seriesCode = first(seriesCode),",
-				"          brandCode = ERROR_FUNCTION(''),",
+				"          brandCode = first(brandCode),",
 				"          column1 = ERROR_FUNCTION('')) ~> aggregate1"
 			]
 		}
