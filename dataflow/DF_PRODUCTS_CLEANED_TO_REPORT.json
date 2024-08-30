@@ -51,7 +51,7 @@
 					"name": "filterNullValues"
 				},
 				{
-					"name": "sort1"
+					"name": "sortAvgPricesByDept"
 				}
 			],
 			"scriptLines": [
@@ -92,7 +92,8 @@
 				"     avgMinPrice = round(avg(minPrice),2),",
 				"          avgMaxPrice = round(avg(minPrice),2)) ~> groupByDepartment",
 				"groupByDepartment filter(!isNull(avgMinPrice) && !isNull(avgMaxPrice) ) ~> filterNullValues",
-				"filterNullValues sort(asc(ERROR_FUNCTION(''), true)) ~> sort1",
+				"filterNullValues sort(asc(avgMinPrice, true),",
+				"     asc(avgMaxPrice, true)) ~> sortAvgPricesByDept",
 				"sortAvgPrices sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
