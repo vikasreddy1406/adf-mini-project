@@ -42,7 +42,7 @@
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> productsRaw",
 				"productsRaw aggregate(groupBy(seriesName),",
-				"     departmentCode = first(departmentCode),",
+				"     departmentCode = departmentCode,",
 				"          categoryCode = first(categoryCode),",
 				"          categoryName = first(categoryName),",
 				"          searchCategoryCode = first(searchCategoryCode),",
